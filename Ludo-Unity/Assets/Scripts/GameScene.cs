@@ -17,6 +17,8 @@ public class GameScene : MonoBehaviour
     private enum GameState
     {
         SelectPawn,
+        WaitingForPawnSelection,
+        PawnSelected,
         GameInProgress,
         GameWon,
         GameLoss,
@@ -39,13 +41,25 @@ public class GameScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        switch (gameState)
+        {
+            default: // All Waiting states
+                break;
+            case GameState.SelectPawn:
+                hud.ShowSelectPawnPopup(PawnSelected);
+                gameState = GameState.WaitingForPawnSelection;
+                break;
+            case GameState.PawnSelected:
+                break;
+               
+        }
     }
 
     public void Back()
     {
         // TODO quit the game and go back properly
         // TEMP ---------
-        SceneManager.LoadScene(SceneNames.MainMenuSceneName);
+        hud.ShowGameQuitPopup(()=> { SceneManager.LoadScene(SceneNames.MainMenuSceneName); });
         // --------------
     }
 
@@ -58,8 +72,16 @@ public class GameScene : MonoBehaviour
     public void DiceRolled()
     {
         int face = dice.RollDice();
-        Debug.Log("Dice Rolled "+face);
+        Debug.Log("Dice Rolled " + face);
         diceUI.DisplayFace(face);
+    }
+
+
+    private void PawnSelected(LudoType pawn)
+    {
+        Debug.Log("Pawn Selected:" + pawn);
+        // TODO Update board
+        gameState = GameState.PawnSelected;
     }
 
 }
