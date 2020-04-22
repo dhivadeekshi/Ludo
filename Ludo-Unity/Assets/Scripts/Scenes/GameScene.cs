@@ -5,14 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameScene : MonoBehaviour
 {
-
-    [SerializeField]
-    private DiceUI diceUI = null;
     [SerializeField]
     private HUD hud = null;
-
-    private Dice dice = new Dice();
-
+    [SerializeField]
+    private BoardUI boardUI = null;
 
     private enum GameState
     {
@@ -32,10 +28,7 @@ public class GameScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        diceUI.SetOnRollDiceListener(RollDice);
-        diceUI.SetDiceRollAnimationEndedListener(DiceRolled);
-        hud.SetOnBackListener(Back);
-        
+        SetListeners();
     }
 
     // Update is called once per frame
@@ -69,25 +62,21 @@ public class GameScene : MonoBehaviour
         // --------------
     }
 
-    public void RollDice()
+    private void SetListeners()
     {
-        diceUI.RollDice();
+        hud.SetOnBackListener(Back);
     }
-
-
-    public void DiceRolled()
-    {
-        int face = dice.RollDice();
-        Debug.Log("Dice Rolled " + face);
-        diceUI.DisplayFace(face);
-    }
-
 
     private void PawnSelected(LudoType pawn)
     {
         Debug.Log("Pawn Selected:" + pawn);
-        // TODO Update board
+        InitGameBoard(pawn);
         gameState = GameState.PawnSelected;
+    }
+
+    private void InitGameBoard(LudoType playerTypeSelected)
+    {
+        boardUI.InitBoard(playerTypeSelected);
     }
 
     private void GotoMainMenu()

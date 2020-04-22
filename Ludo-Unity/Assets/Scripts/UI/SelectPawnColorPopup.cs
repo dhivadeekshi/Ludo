@@ -32,8 +32,16 @@ public class SelectPawnColorPopup : PopupBase
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < pawnButtons.Length; i++)
-            pawnButtons[i].onClick.AddListener(() => { SelectPawn(i + 1); });
+        // TEMP ---------------
+        pawnButtons[0].onClick.AddListener(() => { SelectPawn(0); });
+        pawnButtons[1].onClick.AddListener(() => { SelectPawn(1); });
+        pawnButtons[2].onClick.AddListener(() => { SelectPawn(2); });
+        pawnButtons[3].onClick.AddListener(() => { SelectPawn(3); });
+        // --------------------
+        /*for (int i = 0; i < pawnButtons.Length; i++)
+            pawnButtons[i].onClick.AddListener(() => { SelectPawn(i); });*/
+        //pawnButtons[i].onClick.AddListener(SelectPawn);
+        //pawnButtons[i].onClick.AddListener(() => { int pawn = i; SelectPawn(pawn); });
     }
 
     private void SelectPawn(int pawn)

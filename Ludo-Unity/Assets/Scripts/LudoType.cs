@@ -4,5 +4,6 @@ public enum LudoType
     Red,
     Green,
     Blue,
-    Yellow
+    Yellow,
+    END
 }
