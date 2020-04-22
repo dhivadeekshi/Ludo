@@ -59,7 +59,13 @@ public class GameScene : MonoBehaviour
     {
         // TODO quit the game and go back properly
         // TEMP ---------
-        hud.ShowGameQuitPopup(()=> { SceneManager.LoadScene(SceneNames.MainMenuSceneName); });
+        if (gameState == GameState.SelectPawn || gameState == GameState.WaitingForPawnSelection)
+        {
+            hud.HideSelectPawnPopup();
+            GotoMainMenu();
+        }
+        else if (!hud.IsPopupActive())
+            hud.ShowGameQuitPopup(onConfirm:GotoMainMenu);
         // --------------
     }
 
@@ -82,6 +88,11 @@ public class GameScene : MonoBehaviour
         Debug.Log("Pawn Selected:" + pawn);
         // TODO Update board
         gameState = GameState.PawnSelected;
+    }
+
+    private void GotoMainMenu()
+    {
+        SceneManager.LoadScene(SceneNames.MainMenuSceneName);
     }
 
 }

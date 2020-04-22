@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class SelectPawnColorPopup : MonoBehaviour
+public class SelectPawnColorPopup : PopupBase
 {
     [SerializeField]
     private Button[] pawnButtons = null;

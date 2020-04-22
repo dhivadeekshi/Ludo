@@ -1,5 +1,4 @@
-﻿using System.Collections;
-
+﻿
 public enum LudoType
 {
     Red,

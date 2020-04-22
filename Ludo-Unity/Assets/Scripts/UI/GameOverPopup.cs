@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class GameOverPopup : MonoBehaviour
+public class GameOverPopup : PopupBase
 {
     [SerializeField]
     private Button okayButton = null;
@@ -41,6 +41,8 @@ public class GameOverPopup : MonoBehaviour
     #endregion
 
     #region INTERNAL
+    public override bool CanHandleBack { get { return true; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,11 @@ public class GameOverPopup : MonoBehaviour
     {
         if (onOkayPressed != null)
             onOkayPressed.Invoke();
+    }
+
+    public override void OnBackPressed()
+    {
+        OkayPressed();
     }
     #endregion
 }

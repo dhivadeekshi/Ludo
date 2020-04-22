@@ -15,63 +15,57 @@ public class HUD : MonoBehaviour
 
     public void ShowSelectPawnPopup(UnityAction<LudoType> onPawnSelected)
     {
-        selectPawnColorPopup.SetListeners((pawnSelected) => {
+        selectPawnColorPopup.SetListeners(onPawnSelected:(pawnSelected) => {
             HideSelectPawnPopup();
             if (onPawnSelected != null)
                 onPawnSelected.Invoke(pawnSelected);
         });
-        EnableTransparentLayer();
-        selectPawnColorPopup.gameObject.SetActive(true);
+        ShowPopup(selectPawnColorPopup);
     }
 
     public void HideSelectPawnPopup()
     {
         selectPawnColorPopup.ClearListeners();
-        selectPawnColorPopup.gameObject.SetActive(false);
-        DisableTransparentLayer();
+        ClosePopup(selectPawnColorPopup);
     }
 
     public void ShowGameOverPopup(string player1Name, string player2Name, UnityAction onPopupClose)
     {
-        EnableTransparentLayer();
-        gameOverPopup.Init(player1Name, player2Name, ()=> {
+        gameOverPopup.Init(player1Name, player2Name, onOkayPressed:()=> {
             HideGameOverPopup();
             if (onPopupClose != null)
                 onPopupClose.Invoke();
         });
-        gameOverPopup.gameObject.SetActive(true);
+        ShowPopup(gameOverPopup);
     }
 
     public void HideGameOverPopup()
     {
-        gameOverPopup.gameObject.SetActive(false);
+        gameOverPopup.ClearListeners();
         gameOverPopup.Reset();
-        gameQuitPopup.ClearListeners();
-        DisableTransparentLayer();
+        ClosePopup(gameQuitPopup);
     }
 
     public void ShowGameQuitPopup(UnityAction onConfirm)
     {
-        EnableTransparentLayer();
-        gameQuitPopup.SetListeners(() =>
+        gameQuitPopup.SetListeners(onYesPressed:() =>
         {
             HideGameQuitPopup();
             if (onConfirm != null) 
                 onConfirm.Invoke();
-        },HideGameQuitPopup);
-        gameQuitPopup.gameObject.SetActive(true);
+        },onNoPressed:HideGameQuitPopup);
+        ShowPopup(gameQuitPopup);
     }
 
     public void HideGameQuitPopup()
     {
         gameQuitPopup.ClearListeners();
-        gameQuitPopup.gameObject.SetActive(false);
-        DisableTransparentLayer();
+        ClosePopup(gameQuitPopup);
     }
 
     public bool IsPopupActive()
     {
-        return isPopupActive;   
+        return activePopup != null;   
     }
     #endregion
 
@@ -91,7 +85,7 @@ public class HUD : MonoBehaviour
 
     private UnityAction onBackClick = null;
 
-    private bool isPopupActive = false;
+    private PopupBase activePopup = null;
 
     // Start is called before the first frame update
     void Start()
@@ -108,9 +102,9 @@ public class HUD : MonoBehaviour
 
     private void back()
     {
-        if(isPopupActive)
+        if(IsPopupActive() && activePopup.CanHandleBack)
         {
-            // TODO close active popup ?
+            activePopup.OnBackPressed();
         }
         else
         {
@@ -127,6 +121,30 @@ public class HUD : MonoBehaviour
     private void DisableTransparentLayer()
     {
         transparentLayer.SetActive(false);
+    }
+
+    private void ShowPopup(PopupBase popup)
+    {
+        EnableTransparentLayer();
+        popup.gameObject.SetActive(true);
+        SetActivePopup(popup);
+    }
+
+    private void ClosePopup(PopupBase popup)
+    {
+        popup.gameObject.SetActive(false);
+        ClearActivePopup();
+        DisableTransparentLayer();
+    }
+
+    private void SetActivePopup(PopupBase popup)
+    {
+        activePopup = popup;
+    }
+
+    private void ClearActivePopup()
+    {
+        activePopup = null;
     }
     #endregion
 }

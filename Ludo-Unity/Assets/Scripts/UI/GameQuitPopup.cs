@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class GameQuitPopup : MonoBehaviour
+public class GameQuitPopup : PopupBase
 {
     [SerializeField]
     private Button noButton = null;
@@ -44,6 +44,16 @@ public class GameQuitPopup : MonoBehaviour
     {
         if (onYesPressed != null)
             onYesPressed.Invoke();
+    }
+
+    public override bool CanHandleBack
+    {
+        get { return true; }
+    }
+
+    public override void OnBackPressed()
+    {
+        NoPressed();
     }
     #endregion
 }
