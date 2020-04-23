@@ -10,14 +10,15 @@ public class GameScene : MonoBehaviour
     [SerializeField]
     private BoardUI boardUI = null;
 
+    private Board board = null;
+
     private enum GameState
     {
         SelectPawn,
         WaitingForPawnSelection,
-        PawnSelected,
+        InitGameBoard,
         GameInProgress,
-        GameWon,
-        GameLoss,
+        GameOver,
         QuitGame,
         DiceRolling,
         MovePawn
@@ -39,16 +40,16 @@ public class GameScene : MonoBehaviour
             default: // All Waiting states
                 break;
             case GameState.SelectPawn:
-                hud.ShowSelectPawnPopup(PawnSelected);
+                hud.ShowSelectPawnPopup(onPawnSelected:PlayerSelectedPawn);
                 gameState = GameState.WaitingForPawnSelection;
                 break;
-            case GameState.PawnSelected:
+            case GameState.InitGameBoard:
                 break;
                
         }
     }
 
-    public void Back()
+    private void Back()
     {
         // TODO quit the game and go back properly
         // TEMP ---------
@@ -67,16 +68,19 @@ public class GameScene : MonoBehaviour
         hud.SetOnBackListener(Back);
     }
 
-    private void PawnSelected(LudoType pawn)
+    private void PlayerSelectedPawn(LudoType pawn)
     {
-        Debug.Log("Pawn Selected:" + pawn);
-        InitGameBoard(pawn);
-        gameState = GameState.PawnSelected;
+        LudoType player1Type = pawn;
+        LudoType player2Type = (LudoType)(((int)pawn + 2) % (int)LudoType.END);
+        Debug.Log("PlayerSelectedPawn player1Type:" + player1Type + " player2Type:" + player2Type);
+        CreateTwoPlayerBoard(player1Type, player2Type, "You", "Opponent");
+        gameState = GameState.InitGameBoard;
     }
 
-    private void InitGameBoard(LudoType playerTypeSelected)
+    private void CreateTwoPlayerBoard(LudoType player1Type, LudoType player2Type, string player1Name, string player2Name)
     {
-        boardUI.InitBoard(playerTypeSelected);
+        boardUI.InitTwoPlayerBoard(player1Type, player1Name, player2Name);
+        board = new Board(player1Type, player2Type);
     }
 
     private void GotoMainMenu()

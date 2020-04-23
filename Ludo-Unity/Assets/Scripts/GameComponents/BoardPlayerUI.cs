@@ -14,11 +14,9 @@ public class BoardPlayerUI : MonoBehaviour
         this.playerType = playerType;
     }
 
-    public void Init(LudoType playerType, string playerName = "")
+    public void SetPlayerName(string playerName)
     {
-        SetPlayerType(playerType);
-        if (playerName != "")
-            playerNameText.text = playerName;
+        playerNameText.text = playerName;
     }
 
     public void EnableDice()

@@ -5,11 +5,20 @@ using UnityEngine;
 public class BoardUI : MonoBehaviour
 {
     #region USER INTERFACE
-    public void InitBoard(LudoType playerType)
+    public void InitTwoPlayerBoard(LudoType bottomPlayerType, string player1Name, string player2Name)
     {
-        RotateBoard(playerType);
-        UpdatePlayers(playerType);
+        RotateBoard(bottomPlayerType);
+        UpdatePlayerName(0, player1Name);
+        DisablePlayer(1);
+        UpdatePlayerName(2, player2Name);
+        DisablePlayer(3);
     }
+
+    public void RotateBoard(LudoType boardType)
+    {
+        InternalRotateBoard(boardType);
+    }
+
     #endregion
 
     #region INTERNALS
@@ -32,7 +41,7 @@ public class BoardUI : MonoBehaviour
         
     }
 
-    private void RotateBoard(LudoType boardType)
+    private void InternalRotateBoard(LudoType boardType)
     {
         this.boardType = boardType;
         Debug.Log("Rotate Board : " + boardType);
@@ -51,19 +60,29 @@ public class BoardUI : MonoBehaviour
                 board.transform.SetPositionAndRotation(board.transform.position, Quaternion.AngleAxis(270, new Vector3(0, 0, 1)));
                 break;
         }
+        UpdatePlayers(boardType);
     }
 
-    private void UpdatePlayers(LudoType startPlayerType)
+    private void UpdatePlayers(LudoType bottomLeftPlayer)
     {
-        LudoType playerType = startPlayerType;
-        boardPlayers[0].Init(playerType, "You");
-        for (int i = 1; i < boardPlayers.Length;i++)
+        LudoType playerType = bottomLeftPlayer;
+        for (int i = 0; i < boardPlayers.Length;i++)
         {
+            boardPlayers[i].SetPlayerType(playerType);
             playerType++;
             if (playerType == LudoType.END)
                 playerType = 0;
-            boardPlayers[i].Init(playerType, "Player " + (i + 1));
         }
+    }
+
+    private void UpdatePlayerName(int index, string playerName)
+    {
+        boardPlayers[index].SetPlayerName(playerName);
+    }
+
+    private void DisablePlayer(int index)
+    {
+        boardPlayers[index].gameObject.SetActive(false);
     }
     #endregion
 }
