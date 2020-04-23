@@ -35,10 +35,13 @@ public class PlayerManager
             case GamePlayState.WaitingForPlayerInteraction:
                 break;
             case GamePlayState.HighlightPawns:
-                gamePlayState = GamePlayState.MovePawns;
+                HighlightPawns();
                 break;
             case GamePlayState.MovePawns:
-                gamePlayState = GamePlayState.TurnComplete;
+                // TEMP ------------
+                delayManager.WaitForDuration(Constants.WaitForDiceDisplayDuration, () => { gamePlayState = GamePlayState.TurnComplete; });
+                gamePlayState = GamePlayState.WaitingForPlayerInteraction;
+                // -----------------
                 break;
             case GamePlayState.TurnComplete:
                 GiveTurnToNextPlayer();
@@ -74,6 +77,7 @@ public class PlayerManager
     private GamePlayState gamePlayState = GamePlayState.None;
     private int currentTurnPlayer = 0;
     private DelayManager delayManager = null;
+    private RulesManager rulesManager = new RulesManager();
 
     private int TotalPlayers { get { return players.Count; } }
     private Player CurrentPlayer { get { return players[currentTurnPlayer]; } }
@@ -96,15 +100,24 @@ public class PlayerManager
 
     private void OnDiceRolled(int diceRoll)
     {
-        if (CurrentPlayer.HasPossibleMove(diceRoll))
+        switch(rulesManager.OnDiceRolled(CurrentPlayer, diceRoll))
         {
-            if (CurrentPlayer.HasMoreThanOnePossibleMove())
+            case RulesManager.RulesState.Highlight:
                 gamePlayState = GamePlayState.HighlightPawns;
-            else
+                break;
+            case RulesManager.RulesState.Move:
                 gamePlayState = GamePlayState.MovePawns;
-        }
-        else
-            delayManager.WaitForDuration(Constants.WaitForDiceDisplayDuration, () => { gamePlayState = GamePlayState.TurnComplete; });
+                break;
+            case RulesManager.RulesState.EndTurn:
+                delayManager.WaitForDuration(Constants.WaitForDiceDisplayDuration,
+                    () => { gamePlayState = GamePlayState.TurnComplete; });
+                break;
+        }   
+    }
+
+    private void HighlightPawns()
+    {
+        gamePlayState = GamePlayState.HighlightPawns;
     }
 
 }
