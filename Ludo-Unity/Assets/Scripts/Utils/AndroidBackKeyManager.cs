@@ -7,18 +7,20 @@ public class AndroidBackKeyManager : MonoBehaviour
     #region USER INTERFACE
     public static void SetListener(UnityAction onBackPressed)
     {
-#if UNITY_ANDROID
-        CreateManager();
-        instance.SetLocalListener(onBackPressed);
-#endif
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            CreateManager();
+            instance.SetLocalListener(onBackPressed);
+        }
     }
 
     public static void RemoveListener(UnityAction onBackPressed)
     {
-#if UNITY_ANDROID
-        CreateManager();
-        instance.RemoveLocalListener(onBackPressed);
-#endif
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            CreateManager();
+            instance.RemoveLocalListener(onBackPressed);
+        }
     }
     #endregion
 
