@@ -7,8 +7,9 @@ public class DiceUI : MonoBehaviour
 {
     #region USER INTERFACE
 
-    public void RollDice()
+    public void RollDice(UnityAction onAnimationEnded)
     {
+        this.onAnimationEnded = onAnimationEnded;
         HideCurrentFace();
         StartDiceRollAnimation();
     }
@@ -61,6 +62,7 @@ public class DiceUI : MonoBehaviour
 
     private GameObject currentFace = null;
     private UnityAction onDiceTapped = null;
+    private UnityAction onAnimationEnded = null;
 
     private void Start()
     {
@@ -105,6 +107,15 @@ public class DiceUI : MonoBehaviour
     private void StartDiceRollAnimation()
     {
         diceRollAnimation.SetActive(true);
+        StartCoroutine(DiceRollAnimation());
+    }
+
+    private IEnumerator DiceRollAnimation()
+    {
+        yield return new WaitForSeconds(Constants.DiceRollAnimationDuration);
+        if (onAnimationEnded != null)
+            onAnimationEnded.Invoke();
+        StopDiceRollAnimation();
     }
 
     private void StopDiceRollAnimation()

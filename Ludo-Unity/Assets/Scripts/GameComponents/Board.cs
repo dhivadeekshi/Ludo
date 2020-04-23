@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Board
 {
     #region USER INTERFACE
-    public Board(LudoType player1Type, LudoType player2Type)
+    /*public Board(LudoType player1Type, LudoType player2Type)
     {
         CreatePlayer(player1Type);
         CreatePlayer(player2Type);
@@ -21,6 +21,18 @@ public class Board
     {
         for(LudoType i = 0; i < LudoType.END; i++)
             CreatePlayer(i);
+    }*/
+
+    public Board()
+    {
+
+    }
+
+    public BoardPlayer CreatePlayer(LudoType playerType)
+    {
+        BoardPlayer player = new BoardPlayer(playerType, tileManager);
+        boardPlayers.Add(new BoardPlayerInfo(player, playerType, 0)); // TODO update starting tile use tile manager
+        return player;
     }
 
     public void NextPlayersTurn()
@@ -28,6 +40,11 @@ public class Board
         currentPlayer++;
         if (currentPlayer == TotalPlayers)
             currentPlayer = 0;
+    }
+
+    public LudoType GetCurrentPlayerType()
+    {
+        return GetPlayer(currentPlayer).playerType;
     }
     #endregion
 
@@ -52,12 +69,6 @@ public class Board
         }
     }
 
-    private void CreatePlayer(LudoType playerType)
-    {
-        BoardPlayer player = new BoardPlayer(playerType, tileManager);
-        boardPlayers.Add(new BoardPlayerInfo(player, playerType, 0)); // TODO update starting tile use tile manager
-    }
-
     private bool CanPlayerMove(BoardPlayer player, int dice)
     {
         return player.HasPossibleMove(dice);
@@ -71,6 +82,11 @@ public class Board
     private void MakePlayerMove(BoardPlayer player, int dice)
     {
 
+    }
+
+    private BoardPlayerInfo GetPlayer(int index)
+    {
+        return boardPlayers[index];
     }
     #endregion
 }

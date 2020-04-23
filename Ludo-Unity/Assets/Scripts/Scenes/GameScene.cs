@@ -9,8 +9,11 @@ public class GameScene : MonoBehaviour
     private HUD hud = null;
     [SerializeField]
     private BoardUI boardUI = null;
+    [SerializeField]
+    private DelayManager delayManager = null;
 
-    private Board board = null;
+    private Board board = new Board();
+    private PlayerManager playerManager = null;
 
     private enum GameState
     {
@@ -19,9 +22,7 @@ public class GameScene : MonoBehaviour
         InitGameBoard,
         GameInProgress,
         GameOver,
-        QuitGame,
-        DiceRolling,
-        MovePawn
+        QuttingGame
     }
 
     private GameState gameState = GameState.SelectPawn;
@@ -29,6 +30,7 @@ public class GameScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerManager = new PlayerManager(delayManager);
         SetListeners();
     }
 
@@ -44,8 +46,20 @@ public class GameScene : MonoBehaviour
                 gameState = GameState.WaitingForPawnSelection;
                 break;
             case GameState.InitGameBoard:
+                playerManager.StartPlay();
+                gameState = GameState.GameInProgress;
                 break;
-               
+            case GameState.GameInProgress:
+                playerManager.Update();
+                if(playerManager.IsGameOver())
+                {
+                    string[] playerNames = playerManager.GetPlayerNamesByRank();
+                    string player1Name = playerNames.Length > 0 ? playerNames[0] : "";
+                    string player2Name = playerNames.Length > 1 ? playerNames[1] : "";
+                    hud.ShowGameOverPopup(player1Name, player2Name, onPopupClose: GotoMainMenu);
+                    gameState = GameState.GameOver;
+                }
+                break;
         }
     }
 
@@ -80,12 +94,19 @@ public class GameScene : MonoBehaviour
     private void CreateTwoPlayerBoard(LudoType player1Type, LudoType player2Type, string player1Name, string player2Name)
     {
         boardUI.InitTwoPlayerBoard(player1Type, player1Name, player2Name);
-        board = new Board(player1Type, player2Type);
+        CreateLocalPlayer(player1Type, player1Name);
+        CreateLocalPlayer(player2Type, player2Name);
+    }
+
+    private void CreateLocalPlayer(LudoType playerType, string playerName)
+    {
+        BoardPlayerUI boardPlayerUI = boardUI.GetPlayer(playerType);
+        BoardPlayer boardPlayer = board.CreatePlayer(playerType);
+        playerManager.CreateLocalPlayer(playerType, boardPlayer, boardPlayerUI);
     }
 
     private void GotoMainMenu()
     {
         SceneManager.LoadScene(SceneNames.MainMenuSceneName);
     }
-
 }

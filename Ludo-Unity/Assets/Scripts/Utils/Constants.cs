@@ -1,6 +1,7 @@
 ﻿
 public class Constants { 
     public const float DiceRollAnimationDuration = 0.3f;
+    public const float WaitForDiceDisplayDuration = 1f;
 
     public const int NoOfPawnsPerPlayer = 4;
 

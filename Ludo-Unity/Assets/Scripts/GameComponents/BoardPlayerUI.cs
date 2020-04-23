@@ -19,19 +19,31 @@ public class BoardPlayerUI : MonoBehaviour
         playerNameText.text = playerName;
     }
 
-    public void EnableDice()
+    public void DisplayDice()
     {
-        ShowDice();
+        diceUI.gameObject.SetActive(true);
+    }
+
+    public void HideDice()
+    {
+        diceUI.gameObject.SetActive(false);
+    }
+
+    public void EnableDice(UnityAction onDiceTapped)
+    {
+        diceUI.EnableInteraction();
+        diceUI.SetListeners(onDiceTapped);
     }
 
     public void DisableDice()
     {
-        HideDice();
+        diceUI.DisableInteraction();
+        diceUI.ClearListeners();
     }
 
-    public void RollDice()
+    public void RollDice(UnityAction onAnimationEnded)
     {
-        diceUI.RollDice();
+        diceUI.RollDice(onAnimationEnded);
     }
 
     public void DisplayDiceFace(int face)
@@ -61,11 +73,12 @@ public class BoardPlayerUI : MonoBehaviour
     [SerializeField]
     private PawnUI[] pawns = null;
 
-    private LudoType playerType = LudoType.Red;
+    public LudoType playerType { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
+        playerType = LudoType.Red;
         HideDice();
     }
 
@@ -74,16 +87,5 @@ public class BoardPlayerUI : MonoBehaviour
     {
 
     }
-
-    private void ShowDice()
-    {
-        diceUI.gameObject.SetActive(true);
-    }
-
-    private void HideDice()
-    {
-        diceUI.gameObject.SetActive(false);
-    }
-
     #endregion
 }

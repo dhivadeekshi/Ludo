@@ -19,6 +19,16 @@ public class BoardUI : MonoBehaviour
         InternalRotateBoard(boardType);
     }
 
+    public BoardPlayerUI GetPlayer(LudoType playerType)
+    {
+        foreach (var player in boardPlayers)
+        {
+            if (player.playerType == playerType)
+                return player;
+        }
+        return null;
+    }
+
     #endregion
 
     #region INTERNALS
@@ -83,6 +93,22 @@ public class BoardUI : MonoBehaviour
     private void DisablePlayer(int index)
     {
         boardPlayers[index].gameObject.SetActive(false);
+    }
+
+    private void SetTurn(BoardPlayerUI player)
+    {
+        if(player != null && player.enabled)
+        {
+            player.DisplayDice();
+        }
+    }
+
+    private void TurnEnded(BoardPlayerUI player)
+    {
+        if (player != null && player.enabled)
+        {
+            player.HideDice();
+        }
     }
     #endregion
 }
