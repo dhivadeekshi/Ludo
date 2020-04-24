@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class TileManager : MonoBehaviour
+public class TileManager
 {
-    // Start is called before the first frame update
-    void Start()
+    public int GetNextTile(LudoType playerType, int currentTile)
     {
-        
+        return 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public int GetStartingTile(LudoType playerType)
     {
-        
+        return 0;
     }
 }

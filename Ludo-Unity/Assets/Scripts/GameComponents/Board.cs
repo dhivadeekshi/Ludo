@@ -69,16 +69,6 @@ public class Board
         }
     }
 
-    private bool CanPlayerMove(BoardPlayer player, int dice)
-    {
-        return player.HasPossibleMove(dice);
-    }
-
-    private bool CanCurrentPlayerMove(int dice)
-    {
-        return CanPlayerMove(boardPlayers[currentPlayer].player, dice);
-    }
-
     private void MakePlayerMove(BoardPlayer player, int dice)
     {
 

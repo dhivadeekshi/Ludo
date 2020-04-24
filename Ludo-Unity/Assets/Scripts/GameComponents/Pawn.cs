@@ -44,14 +44,6 @@ public class Pawn
     {
         TilesTravled += tiles;
     }
-
-    public bool CanMove(int tiles)
-    {
-        if (IsHome) return false;   // Cant move if we already reached home
-        if (IsInStart)
-            return tiles == Constants.DiceRoll.RollToGetOutFromStart;   // If we are not out we can only get out on rolling the exact dice face
-        return TilesTravled + tiles <= Constants.DiceRoll.TotalStepsToReachHome;    // Can move only if we have tiles to move
-    }
     #endregion
 
     #region INTERNALS

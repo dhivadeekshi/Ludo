@@ -22,25 +22,23 @@ public class CommonPlayer
         this.onDiceRolled = null;
     }
 
-    public bool HasPossibleMove(int diceRoll)
-    {
-        return boardPlayer.HasPossibleMove(diceRoll);
-    }
-
-    public bool HasMoreThanOnePossibleMove()
-    {
-        return false;
-    }
-
-
-    public bool IsPlayerWon()
-    {
-        return boardPlayer.IsPlayerWon();
-    }
-
     public bool IsLocalPlayer() { return playerType == PlayerType.LocalPlayer; }
     public bool IsOnlinePlayer() { return playerType == PlayerType.OnlinePlayer; }
     public LudoType GetPlayerBoardType() { return playerBoardType; }
+
+    // Board Player Start
+    public Pawn.PawnID GetAPawnOutOfStart() { return boardPlayer.GetAPawnOutOfStart(); }
+    public int GetTilesTraveled(Pawn.PawnID pawnID) { return boardPlayer.GetTilesTraveled(pawnID); } 
+    public void ReturnPawnToStart(Pawn.PawnID pawnID) { boardPlayer.ReturnPawnToStart(pawnID); }
+    public void MovePawn(Pawn.PawnID pawnID, int tiles) { boardPlayer.MovePawn(pawnID, tiles); }
+    public int CountPawnsInStart() {return boardPlayer.CountPawnsInStart(); }
+    public int CountPawnsInHome() { return boardPlayer.CountPawnsInHome(); }
+    public int CountPawnsInOpen() { return boardPlayer.CountPawnsInOpen(); }
+    public List<Pawn.PawnID> GetAllPawnsInStart() { return boardPlayer.GetAllPawnsInStart(); }
+    public List<Pawn.PawnID> GetAllPawnsInOpen() { return boardPlayer.GetAllPawnsInOpen(); }
+    public List<Pawn.PawnID> GetAllPawns() { return boardPlayer.GetAllPawns(); }
+    // Board Player End
+
     #endregion
 
 

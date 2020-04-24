@@ -6,9 +6,18 @@ public interface Player
 {
     void SetPlayersTurn();
     void EndPlayersTurn();
-    bool IsPlayerWon();
     void SetListeners(Action<int> onDiceRolled);
     void ClearListeners();
-    bool HasPossibleMove(int diceRoll);
-    bool HasMoreThanOnePossibleMove();
+
+
+    Pawn.PawnID GetAPawnOutOfStart();
+    int GetTilesTraveled(Pawn.PawnID pawnID);
+    void ReturnPawnToStart(Pawn.PawnID pawnID);
+    void MovePawn(Pawn.PawnID pawnID, int tiles);
+    int CountPawnsInStart();
+    int CountPawnsInHome();
+    int CountPawnsInOpen();
+    List<Pawn.PawnID> GetAllPawnsInStart();
+    List<Pawn.PawnID> GetAllPawnsInOpen();
+    List<Pawn.PawnID> GetAllPawns();
 }

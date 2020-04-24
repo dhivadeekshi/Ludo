@@ -33,25 +33,71 @@ public class BoardPlayer
         if (pawn != null) pawn.MoveTo(tiles);
     }
 
-    public bool HasPossibleMove(int diceRoll)
-    {   
-        return CanAnyPawnMove(diceRoll);
-    }
-
-    public bool IsPlayerWon()
+    public int GetTilesTraveled(PawnID pawnID)
     {
-        // Player is won if all pawns reached home
-        return IsAllPawnsInHome();
-
+        Pawn pawn = GetPawnForID(pawnID);
+        if (pawn == null) return -1;
+        return pawn.TilesTravled;
     }
 
-    public List<PawnID> GetAllMovablePawns(int diceRoll)
+    public int CountPawnsInStart()
+    {
+        int count = 0;
+        foreach (var pawn in pawns)
+        {
+            if (pawn.IsInStart) count++;
+        }
+        return count;
+    }
+
+    public int CountPawnsInHome()
+    {
+        int count = 0;
+        foreach(var pawn in pawns)
+        {
+            if (pawn.IsHome) count++;
+        }
+        return count;
+    }
+
+    public int CountPawnsInOpen()
+    {
+        int count = 0;
+        foreach(var pawn in pawns)
+        {
+            if (pawn.IsPawnOut) count++;
+        }
+        return count;
+    }
+
+    public List<PawnID> GetAllPawnsInStart()
+    {
+        List<PawnID> pawnIDs = new List<PawnID>();
+        foreach (var pawn in pawns)
+        {
+            if (pawn.IsInStart)
+                pawnIDs.Add(pawn.pawnID);
+        }
+        return pawnIDs;
+    }
+
+    public List<PawnID> GetAllPawnsInOpen()
+    {
+        List<PawnID> pawnIDs = new List<PawnID>();
+        foreach (var pawn in pawns)
+        {
+            if (pawn.IsPawnOut)
+                pawnIDs.Add(pawn.pawnID);
+        }
+        return pawnIDs;
+    }
+
+    public List<PawnID> GetAllPawns()
     {
         List<PawnID> pawnIDs = new List<PawnID>();
         foreach(var pawn in pawns)
         {
-            if (pawn.CanMove(diceRoll))
-                pawnIDs.Add(pawn.pawnID);
+            pawnIDs.Add(pawn.pawnID);
         }
         return pawnIDs;
     }
@@ -70,34 +116,7 @@ public class BoardPlayer
             pawns[i] = new Pawn(PlayerType, new PawnID(i));
     }
 
-    private bool IsAnyPawnInStart()
-    {
-        foreach(var pawn in pawns)
-        {
-            if (pawn.IsInStart) return true;
-        }
-        return false;
-    }
-
-    private bool CanAnyPawnMove(int diceRoll)
-    {
-        foreach(var pawn in pawns)
-        {
-            if (pawn.CanMove(diceRoll)) return true;
-        }
-        return false;
-    }
-
-    private bool IsAllPawnsInHome()
-    {
-        foreach(var pawn in pawns)
-        {
-            if (!pawn.IsHome) return false;
-        }
-        return true;
-    }
-
-    public Pawn GetPawnForID(PawnID pawnID)
+    private Pawn GetPawnForID(PawnID pawnID)
     {
         foreach (var pawn in pawns)
         {

@@ -12,7 +12,7 @@ public class GameScene : MonoBehaviour
     [SerializeField]
     private DelayManager delayManager = null;
 
-    private Board board = new Board();
+    private Board board = null;
     private PlayerManager playerManager = null;
 
     private enum GameState
@@ -30,6 +30,7 @@ public class GameScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        board = new Board();
         playerManager = new PlayerManager(delayManager);
         SetListeners();
     }
@@ -42,23 +43,15 @@ public class GameScene : MonoBehaviour
             default: // All Waiting states
                 break;
             case GameState.SelectPawn:
-                hud.ShowSelectPawnPopup(onPawnSelected:PlayerSelectedPawn);
+                hud.ShowSelectPawnPopup(onPawnSelected: PlayerSelectedPawn);
                 gameState = GameState.WaitingForPawnSelection;
                 break;
             case GameState.InitGameBoard:
-                playerManager.StartPlay();
+                playerManager.StartPlay(onGameOver: OnGameOver);
                 gameState = GameState.GameInProgress;
                 break;
             case GameState.GameInProgress:
                 playerManager.Update();
-                if(playerManager.IsGameOver())
-                {
-                    string[] playerNames = playerManager.GetPlayerNamesByRank();
-                    string player1Name = playerNames.Length > 0 ? playerNames[0] : "";
-                    string player2Name = playerNames.Length > 1 ? playerNames[1] : "";
-                    hud.ShowGameOverPopup(player1Name, player2Name, onPopupClose: GotoMainMenu);
-                    gameState = GameState.GameOver;
-                }
                 break;
         }
     }
@@ -82,6 +75,15 @@ public class GameScene : MonoBehaviour
         hud.SetOnBackListener(Back);
     }
 
+    private void OnGameOver()
+    {
+        string[] playerNames = playerManager.GetPlayerNamesByRank();
+        string player1Name = playerNames.Length > 0 ? playerNames[0] : "";
+        string player2Name = playerNames.Length > 1 ? playerNames[1] : "";
+        hud.ShowGameOverPopup(player1Name, player2Name, onPopupClose: GotoMainMenu);
+        gameState = GameState.GameOver;
+    }
+
     private void PlayerSelectedPawn(LudoType pawn)
     {
         LudoType player1Type = pawn;
@@ -94,11 +96,11 @@ public class GameScene : MonoBehaviour
     private void CreateTwoPlayerBoard(LudoType player1Type, LudoType player2Type, string player1Name, string player2Name)
     {
         boardUI.InitTwoPlayerBoard(player1Type, player1Name, player2Name);
-        CreateLocalPlayer(player1Type, player1Name);
-        CreateLocalPlayer(player2Type, player2Name);
+        CreateLocalPlayer(player1Type);
+        CreateLocalPlayer(player2Type);
     }
 
-    private void CreateLocalPlayer(LudoType playerType, string playerName)
+    private void CreateLocalPlayer(LudoType playerType)
     {
         BoardPlayerUI boardPlayerUI = boardUI.GetPlayer(playerType);
         BoardPlayer boardPlayer = board.CreatePlayer(playerType);
