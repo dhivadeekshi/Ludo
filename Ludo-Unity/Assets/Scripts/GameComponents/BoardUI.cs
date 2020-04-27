@@ -78,7 +78,7 @@ public class BoardUI : MonoBehaviour
         LudoType playerType = bottomLeftPlayer;
         for (int i = 0; i < boardPlayers.Length;i++)
         {
-            boardPlayers[i].SetPlayerType(playerType);
+            boardPlayers[i].Init(playerType);
             playerType++;
             if (playerType == LudoType.END)
                 playerType = 0;

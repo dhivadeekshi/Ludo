@@ -1,23 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using PawnType = LudoType;
 
 public class PawnUI : MonoBehaviour
 {
     #region USER INTERFACE
-
-    public void MoveToPosition(Vector2 position, UnityAction<Pawn.PawnID> onMoveCompleted)
+    public struct PawnUIID
     {
-        onPawnMoveEnded = onMoveCompleted;
-        // TODO update position
+        public int id { get; private set; }
+        public PawnUIID(int id) => this.id = id;
+        public static PawnUIID nullID { get { return new PawnUIID(-1); } }
+        public bool equals(PawnUIID otherID) => this.id == otherID.id;
     }
 
-    public void SetPawnPosition(Vector2 position)
+    public void Init(PawnType pawnType, PawnUIID pawnID)
     {
-        transform.position = position;
+        UpdateVisuals(pawnType);
+        this.pawnID = pawnID;
     }
 
-    public void HighlightPawn(UnityAction<Pawn.PawnID> onPawnTapped)
+    public void HighlightPawn(UnityAction<PawnUIID> onPawnTapped)
     {
         this.onPawnTapped = onPawnTapped;
         highlight.SetActive(true);
@@ -29,19 +32,17 @@ public class PawnUI : MonoBehaviour
         highlight.SetActive(false);
     }
 
-    public void SetPawnType(LudoType pawnType)
+    public void MoveToPosition(Vector2 position, UnityAction<PawnUIID> onMoveCompleted)
     {
-        UpdateVisuals(pawnType);
+        onPawnMoveEnded = onMoveCompleted;
+        // TODO update position
     }
 
-    public LudoType GetPawnType()
-    {
-        return pawnType;
-    }
-
-    public void AssociatePawnTo(Pawn.PawnID pawnID) { this.pawnID = pawnID; }
-    public Pawn.PawnID GetAssociatedPawnID() { return pawnID; }
-    public void ClearAssociatedPawnID() { pawnID = Pawn.PawnID.nullID; }
+    public void SetPawnPosition(Vector2 position) => transform.position = position;
+    public void Resize(Vector3 scale) => transform.localScale = scale;
+    public void ResetSize() => transform.localScale = Vector3.one;
+    public PawnType pawnType { get; private set; }
+    public PawnUIID pawnID { get; private set; }
 
     #endregion
 
@@ -54,11 +55,8 @@ public class PawnUI : MonoBehaviour
     [SerializeField]
     private Button button = null;
 
-    private UnityAction<Pawn.PawnID> onPawnMoveEnded = null;
-    private UnityAction<Pawn.PawnID> onPawnTapped = null;
-
-    private LudoType pawnType = LudoType.Red;
-    private Pawn.PawnID pawnID = Pawn.PawnID.nullID;
+    private UnityAction<PawnUIID> onPawnMoveEnded = null;
+    private UnityAction<PawnUIID> onPawnTapped = null;
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +77,7 @@ public class PawnUI : MonoBehaviour
             onPawnTapped.Invoke(pawnID);
     }
 
-    private void UpdateVisuals(LudoType pawnType)
+    private void UpdateVisuals(PawnType pawnType)
     {
         images[(int)this.pawnType].SetActive(false);
         images[(int)pawnType].SetActive(true);

@@ -5,11 +5,9 @@ public class Pawn
     public struct PawnID
     {
         public int id { get; private set; }
-        public PawnID(int id) { this.id = id; }
-
+        public PawnID(int id) => this.id = id;
         public static PawnID nullID { get { return new PawnID(-1); } }
-
-        public bool equals(PawnID otherID) { return this.id == otherID.id; }
+        public bool equals(PawnID otherID) => this.id == otherID.id;
     }
 
     public LudoType PawnType { get; private set; }
