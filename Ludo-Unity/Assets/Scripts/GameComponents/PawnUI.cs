@@ -34,8 +34,11 @@ public class PawnUI : MonoBehaviour
 
     public void MoveToPosition(Vector2 position, UnityAction<PawnUIID> onMoveCompleted)
     {
-        onPawnMoveEnded = onMoveCompleted;
-        // TODO update position
+        MoveManager.MoveObjectTo(gameObject, position, onMoveCompleted: () =>
+         {
+             if (onMoveCompleted != null)
+                 onMoveCompleted.Invoke(pawnID);
+         });
     }
 
     public void SetPawnPosition(Vector2 position) => transform.position = position;
@@ -55,7 +58,6 @@ public class PawnUI : MonoBehaviour
     [SerializeField]
     private Button button = null;
 
-    private UnityAction<PawnUIID> onPawnMoveEnded = null;
     private UnityAction<PawnUIID> onPawnTapped = null;
 
     // Start is called before the first frame update
