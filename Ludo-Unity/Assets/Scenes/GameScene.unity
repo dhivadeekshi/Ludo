@@ -208,7 +208,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (2)
+      value: Pawn3
       objectReference: {fileID: 0}
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -435,6 +435,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51014831}
   m_CullTransparentMesh: 0
+--- !u!1 &51376233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 51376234}
+  - component: {fileID: 51376235}
+  m_Layer: 5
+  m_Name: Slot3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &51376234
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51376233}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1970594616}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -37, y: -144.20004}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &51376235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51376233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!1 &57308660
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +576,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57308660}
   m_CullTransparentMesh: 0
+--- !u!1 &88567737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 88567738}
+  - component: {fileID: 88567739}
+  m_Layer: 5
+  m_Name: Slot1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &88567738
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88567737}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 927029523}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -39, y: -73.2}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &88567739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88567737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!1001 &94775091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -537,7 +635,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn
+      value: Pawn1
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -667,6 +765,55 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 94775091}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &115486705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 115486706}
+  - component: {fileID: 115486707}
+  m_Layer: 5
+  m_Name: Slot2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &115486706
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115486705}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1137814858}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 40, y: 176}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &115486707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115486705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!1 &118035370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,7 +1195,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (6)
+      value: Pawn3
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -1857,6 +2004,11 @@ RectTransform:
   - {fileID: 1434393211}
   - {fileID: 36670658}
   - {fileID: 2017073456}
+  - {fileID: 1912547026}
+  - {fileID: 630659063}
+  - {fileID: 1865169503}
+  - {fileID: 1148426300}
+  - {fileID: 752700893}
   m_Father: {fileID: 335267056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1878,12 +2030,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 1589773175}
+  homeSpot: {fileID: 752700892}
   diceUI: {fileID: 2142266686}
   pawns:
   - {fileID: 2023248313}
   - {fileID: 812415134}
   - {fileID: 15412021}
   - {fileID: 2026274581}
+  slots:
+  - {fileID: 1912547027}
+  - {fileID: 630659064}
+  - {fileID: 1865169504}
+  - {fileID: 1148426301}
 --- !u!222 &395579511
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1892,6 +2050,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395579508}
   m_CullTransparentMesh: 0
+--- !u!1 &404762800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 404762801}
+  - component: {fileID: 404762802}
+  m_Layer: 5
+  m_Name: Slot4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &404762801
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404762800}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1137814858}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 40, y: 105}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &404762802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404762800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!114 &419597647 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6574104490428587824, guid: fcbbcc78cc37d3d459e398f6719dad0a,
@@ -2073,6 +2280,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462621106}
   m_CullTransparentMesh: 0
+--- !u!1 &499158451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 499158452}
+  - component: {fileID: 499158453}
+  m_Layer: 5
+  m_Name: Slot3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &499158452
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499158451}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1137814858}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -35, y: 105}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &499158453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499158451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!114 &503437453 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6574104490428587824, guid: fcbbcc78cc37d3d459e398f6719dad0a,
@@ -2148,6 +2404,55 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!1 &533346041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 533346042}
+  - component: {fileID: 533346043}
+  m_Layer: 5
+  m_Name: Slot2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &533346042
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533346041}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1970594616}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 38, y: -73.200035}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &533346043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533346041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!1 &552723695
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,6 +2526,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552723695}
   m_CullTransparentMesh: 0
+--- !u!1 &630659062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 630659063}
+  - component: {fileID: 630659064}
+  m_Layer: 5
+  m_Name: Slot2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &630659063
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630659062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 395579509}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 38, y: 176}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &630659064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630659062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!114 &633369567 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6574104490428587824, guid: fcbbcc78cc37d3d459e398f6719dad0a,
@@ -2384,7 +2738,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn
+      value: Pawn1
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -2604,6 +2958,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709380165}
   m_CullTransparentMesh: 0
+--- !u!1 &720593389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 720593390}
+  m_Layer: 5
+  m_Name: Home
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &720593390
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720593389}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1970594616}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -220, y: -300}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &752700892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 752700893}
+  m_Layer: 5
+  m_Name: Home
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &752700893
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752700892}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 395579509}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 220, y: 300}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &763115087
 GameObject:
   m_ObjectHideFlags: 0
@@ -3064,7 +3488,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (9)
+      value: Pawn4
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -3216,7 +3640,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn
+      value: Pawn1
       objectReference: {fileID: 0}
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -3371,6 +3795,11 @@ RectTransform:
   - {fileID: 1687767161}
   - {fileID: 1763898665}
   - {fileID: 2069874347}
+  - {fileID: 88567738}
+  - {fileID: 1243676266}
+  - {fileID: 931421725}
+  - {fileID: 1941268677}
+  - {fileID: 1321497378}
   m_Father: {fileID: 335267056}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3392,12 +3821,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 1833315059}
+  homeSpot: {fileID: 1321497377}
   diceUI: {fileID: 290341038}
   pawns:
   - {fileID: 1513990377}
   - {fileID: 1285157110}
   - {fileID: 1199527947}
   - {fileID: 906168562}
+  slots:
+  - {fileID: 88567739}
+  - {fileID: 1243676267}
+  - {fileID: 931421726}
+  - {fileID: 1941268678}
 --- !u!222 &927029525
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3406,6 +3841,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927029522}
   m_CullTransparentMesh: 0
+--- !u!1 &931421724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 931421725}
+  - component: {fileID: 931421726}
+  m_Layer: 5
+  m_Name: Slot3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &931421725
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931421724}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 927029523}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -39, y: -144.2}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &931421726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931421724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!1 &958010631
 GameObject:
   m_ObjectHideFlags: 0
@@ -3689,7 +4173,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (4)
+      value: Pawn2
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -4062,6 +4546,11 @@ RectTransform:
   - {fileID: 1072410349}
   - {fileID: 1333046168}
   - {fileID: 878952139}
+  - {fileID: 1661721262}
+  - {fileID: 115486706}
+  - {fileID: 499158452}
+  - {fileID: 404762801}
+  - {fileID: 1878173812}
   m_Father: {fileID: 335267056}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4083,12 +4572,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 1497154770}
+  homeSpot: {fileID: 1878173811}
   diceUI: {fileID: 354936305}
   pawns:
   - {fileID: 1178877945}
   - {fileID: 503437453}
   - {fileID: 1204285095}
   - {fileID: 1339868547}
+  slots:
+  - {fileID: 1661721263}
+  - {fileID: 115486707}
+  - {fileID: 499158453}
+  - {fileID: 404762802}
 --- !u!222 &1137814860
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4097,6 +4592,104 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137814857}
   m_CullTransparentMesh: 0
+--- !u!1 &1148426299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1148426300}
+  - component: {fileID: 1148426301}
+  m_Layer: 5
+  m_Name: Slot4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1148426300
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148426299}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 395579509}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 38, y: 105}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1148426301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148426299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
+--- !u!1 &1150048453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1150048454}
+  - component: {fileID: 1150048455}
+  m_Layer: 5
+  m_Name: Slot1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1150048454
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150048453}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1970594616}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -37, y: -73.200035}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1150048455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1150048453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!114 &1178877945 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6574104490428587824, guid: fcbbcc78cc37d3d459e398f6719dad0a,
@@ -4131,7 +4724,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn
+      value: Pawn1
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -4273,6 +4866,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a0d1278d3ac8a4d9fcc04fda9a2462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1243676265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1243676266}
+  - component: {fileID: 1243676267}
+  m_Layer: 5
+  m_Name: Slot2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1243676266
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243676265}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 927029523}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 36, y: -73.2}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1243676267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243676265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!114 &1285157110 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6574104490428587824, guid: fcbbcc78cc37d3d459e398f6719dad0a,
@@ -4435,6 +5077,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1314729469}
   m_CullTransparentMesh: 0
+--- !u!1 &1321497377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1321497378}
+  m_Layer: 5
+  m_Name: Home
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1321497378
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321497377}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 927029523}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 175, y: -350}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1333046167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4445,7 +5122,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (8)
+      value: Pawn3
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -4575,6 +5252,55 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1333046167}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1335292206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1335292207}
+  - component: {fileID: 1335292208}
+  m_Layer: 5
+  m_Name: Slot4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1335292207
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335292206}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1970594616}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 38, y: -144.20004}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1335292208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335292206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!114 &1339868547 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6574104490428587824, guid: fcbbcc78cc37d3d459e398f6719dad0a,
@@ -4597,7 +5323,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (1)
+      value: Pawn2
       objectReference: {fileID: 0}
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -4889,7 +5615,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (7)
+      value: Pawn4
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -5610,6 +6336,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634788287}
   m_CullTransparentMesh: 0
+--- !u!1 &1661721261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1661721262}
+  - component: {fileID: 1661721263}
+  m_Layer: 5
+  m_Name: Slot1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1661721262
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661721261}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1137814858}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -35, y: 176}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1661721263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661721261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!1 &1662536845
 GameObject:
   m_ObjectHideFlags: 0
@@ -5697,7 +6472,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (2)
+      value: Pawn2
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -6071,7 +6846,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (4)
+      value: Pawn3
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -6284,7 +7059,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (3)
+      value: Pawn2
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -6576,6 +7351,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a0d1278d3ac8a4d9fcc04fda9a2462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1865169502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1865169503}
+  - component: {fileID: 1865169504}
+  m_Layer: 5
+  m_Name: Slot3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1865169503
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865169502}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 395579509}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -37, y: 105}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1865169504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865169502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!1 &1869259179
 GameObject:
   m_ObjectHideFlags: 0
@@ -6653,6 +7477,139 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869259179}
   m_CullTransparentMesh: 0
+--- !u!1 &1878173811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1878173812}
+  m_Layer: 5
+  m_Name: Home
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1878173812
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878173811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1137814858}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -175, y: 350}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1912547025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1912547026}
+  - component: {fileID: 1912547027}
+  m_Layer: 5
+  m_Name: Slot1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1912547026
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912547025}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 395579509}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -37, y: 176}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1912547027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912547025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
+--- !u!1 &1941268676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1941268677}
+  - component: {fileID: 1941268678}
+  m_Layer: 5
+  m_Name: Slot4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1941268677
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941268676}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 927029523}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 36, y: -144.2}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1941268678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941268676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb899ac6374585746aa9d6e373909543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawnUI: {fileID: 0}
 --- !u!1 &1958489038
 GameObject:
   m_ObjectHideFlags: 0
@@ -6961,6 +7918,11 @@ RectTransform:
   - {fileID: 1800599631}
   - {fileID: 268937695}
   - {fileID: 1514030626}
+  - {fileID: 1150048454}
+  - {fileID: 533346042}
+  - {fileID: 51376234}
+  - {fileID: 1335292207}
+  - {fileID: 720593390}
   m_Father: {fileID: 335267056}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6982,12 +7944,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 763115089}
+  homeSpot: {fileID: 720593389}
   diceUI: {fileID: 1562346730}
   pawns:
   - {fileID: 234475590}
   - {fileID: 633369567}
   - {fileID: 419597647}
   - {fileID: 1842198240}
+  slots:
+  - {fileID: 1150048455}
+  - {fileID: 533346043}
+  - {fileID: 51376235}
+  - {fileID: 1335292208}
 --- !u!222 &1970594618
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7054,7 +8022,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (3)
+      value: Pawn4
       objectReference: {fileID: 0}
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
@@ -7208,7 +8176,7 @@ PrefabInstance:
     - target: {fileID: 3773738137815447591, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}
       propertyPath: m_Name
-      value: Pawn (5)
+      value: Pawn4
       objectReference: {fileID: 0}
     - target: {fileID: 2124175522143038492, guid: fcbbcc78cc37d3d459e398f6719dad0a,
         type: 3}

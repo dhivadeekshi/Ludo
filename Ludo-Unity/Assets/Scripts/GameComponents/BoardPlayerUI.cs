@@ -19,15 +19,12 @@ public class BoardPlayerUI : MonoBehaviour
         playerNameText.text = playerName;
     }
 
-    public void DisplayDice()
-    {
-        diceUI.gameObject.SetActive(true);
-    }
-
-    public void HideDice()
-    {
-        diceUI.gameObject.SetActive(false);
-    }
+    // DICE UI ----------------------------------------
+    public void DisplayDice() => diceUI.gameObject.SetActive(true);
+    public void HideDice() => diceUI.gameObject.SetActive(false);
+    public void RollDice(UnityAction onAnimationEnded) => diceUI.RollDice(onAnimationEnded);
+    public void DisplayDiceFace(int face) => diceUI.DisplayFace(face);
+    public void ResetDice() => diceUI.Reset();
 
     public void EnableDice(UnityAction onDiceTapped)
     {
@@ -40,38 +37,57 @@ public class BoardPlayerUI : MonoBehaviour
         diceUI.DisableInteraction();
         diceUI.ClearListeners();
     }
+    // ------------------------------------------------
 
-    public void RollDice(UnityAction onAnimationEnded)
+
+    // Pawn UI ----------------------------------------
+    public void AssociateToPawns(List<Pawn.PawnID> pawnIDs)
     {
-        diceUI.RollDice(onAnimationEnded);
+        int i = 0;
+        foreach (var pawn in pawns)
+            pawn.AssociatePawnTo(pawnIDs[i++]);
     }
 
-    public void DisplayDiceFace(int face)
+    public void AssociatePawns(PawnUI pawnUI, Pawn.PawnID pawnID) => pawnUI.AssociatePawnTo(pawnID);
+    
+    public void HighlightPawnsInStart()
     {
-        diceUI.DisplayFace(face);
+        foreach(int pawnIndex in pawnsInStart)
+        {
+            pawns[pawnIndex].HighlightPawn(onPawnTapped: (pawnID) => { });
+        }
     }
 
-    public void ResetDice()
+    public void HighlightPawnsInOpen()
     {
-        diceUI.Reset();
+        foreach (int pawnIndex in pawnsInOpen)
+        {
+            pawns[pawnIndex].HighlightPawn(onPawnTapped: (pawnID) => { });
+        }
     }
 
-    public void MovePawn(int pawnIndex, Vector2 position, UnityAction onMoveCompleted)
+    /*public void MovePawn(int pawnIndex, Vector2 position, UnityAction<Pawn.PawnID> onMoveCompleted)
     {
         pawns[pawnIndex].MoveToPosition(position, onMoveCompleted);
-    }
-
-
-
+    }*/
+    // ------------------------------------------------
     #endregion
 
     #region INTERNALS
     [SerializeField]
     private Text playerNameText = null;
     [SerializeField]
+    private GameObject homeSpot = null;
+    [SerializeField]
     private DiceUI diceUI = null;
     [SerializeField]
     private PawnUI[] pawns = null;
+    [SerializeField]
+    private PlayerPawnSlotUI[] slots = null;
+
+    private List<int> pawnsInStart = new List<int>();
+    private List<int> pawnsInOpen = new List<int>();
+    private List<int> pawnsInHome = new List<int>();
 
     public LudoType playerType { get; private set; }
 
@@ -80,12 +96,23 @@ public class BoardPlayerUI : MonoBehaviour
     {
         playerType = LudoType.Red;
         HideDice();
+        InitPawnsInSlots();
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void InitPawnsInSlots()
+    {
+        int index = 0;
+        foreach (var slot in slots)
+        {
+            pawnsInStart.Add(index);
+            slot.PutPawnInSlot(pawns[index++]);
+        }
     }
     #endregion
 }

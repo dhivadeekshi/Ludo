@@ -104,9 +104,14 @@ public class PlayerManager
         switch(rulesManager.CheckRulesOnDiceRoll(diceRoll))
         {
             case RulesManager.DiceRollStates.Highlight:
+                if (rulesManager.IsHighlightPawnsInStart(diceRoll))
+                    CurrentPlayer.HighlightAllPawnsInStart();
+                CurrentPlayer.HighlightPawnsInOpenTraveledMax(rulesManager.GetTilesTraveledMaxToAllowMove(diceRoll));
                 gamePlayState = GamePlayState.HighlightPawns;
                 break;
-            case RulesManager.DiceRollStates.Move:
+            case RulesManager.DiceRollStates.Move: // Will always be only one move possible
+                var pawns = CurrentPlayer.GetAllPawnsInStart();
+                if (pawns != null) CurrentPlayer.GetAPawnOutOfStart();
                 gamePlayState = GamePlayState.MovePawns;
                 break;
             case RulesManager.DiceRollStates.EndTurn:

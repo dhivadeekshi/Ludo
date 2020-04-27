@@ -70,6 +70,16 @@ public class BoardPlayer
         return count;
     }
 
+    public int CountPawnsInOpenTraveledMax(int tiles)
+    {
+        int count = 0;
+        foreach (var pawn in pawns)
+        {
+            if (pawn.IsPawnOut && pawn.TilesTravled <= tiles) count++;
+        }
+        return count;
+    }
+
     public List<PawnID> GetAllPawnsInStart()
     {
         List<PawnID> pawnIDs = new List<PawnID>();
@@ -87,6 +97,17 @@ public class BoardPlayer
         foreach (var pawn in pawns)
         {
             if (pawn.IsPawnOut)
+                pawnIDs.Add(pawn.pawnID);
+        }
+        return pawnIDs;
+    }
+
+    public List<PawnID> GetAllPawnsInOpenTraveledMax(int tiles)
+    {
+        List<PawnID> pawnIDs = new List<PawnID>();
+        foreach (var pawn in pawns)
+        {
+            if (pawn.IsPawnOut && pawn.TilesTravled <= tiles)
                 pawnIDs.Add(pawn.pawnID);
         }
         return pawnIDs;

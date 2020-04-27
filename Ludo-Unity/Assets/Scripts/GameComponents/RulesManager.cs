@@ -44,8 +44,10 @@ public class RulesManager
         return CheckPawnMoveRules();
     }
 
+    public bool IsHighlightPawnsInStart(int diceRoll) { return diceRoll == Constants.DiceRoll.RollToGetOutFromStart; }
     public bool IsCurrentPlayerWon() { return IsPlayerWon(CurrentPlayer); }
     public bool IsPlayerWon(Player player) { return player.CountPawnsInHome() == Constants.NoOfPawnsPerPlayer; }
+    public int GetTilesTraveledMaxToAllowMove(int diceRoll) { return Constants.DiceRoll.TotalStepsToReachHome - diceRoll; }
 
     private Player CurrentPlayer { get; set; }
     private List<Player> players = new List<Player>();
@@ -75,7 +77,7 @@ public class RulesManager
 
         int diceRoll = LastRolledDice();
         int pawnsInStart = CurrentPlayer.CountPawnsInStart();
-        int pawnsInOpen = CountMovablePawnsInOpen(diceRoll);
+        int pawnsInOpen = CurrentPlayer.CountPawnsInOpenTraveledMax(GetTilesTraveledMaxToAllowMove(diceRoll));
 
         if (diceRoll == Constants.DiceRoll.RollToGetOutFromStart)
         {
@@ -123,24 +125,6 @@ public class RulesManager
     private void CheckIfPawnKillsAny(Pawn.PawnID pawnID)
     {
         // TODO check if there is any opponent single pawn in the same tile then kill it
-    }
-
-
-    private int CountMovablePawnsInOpen(int diceRoll)
-    {
-        int count = 0;
-        var pawnsInOpen = CurrentPlayer.GetAllPawnsInOpen();
-        foreach (var pawnId in pawnsInOpen)
-        {
-            if (CanMove(CurrentPlayer.GetTilesTraveled(pawnId), diceRoll))
-                count++;
-        }
-        return count;
-    }
-
-    private bool CanMove(int tilesTraveled, int diceRoll)
-    {
-        return tilesTraveled + diceRoll <= Constants.DiceRoll.TotalStepsToReachHome;
     }
 
     private bool CanReachHome(int tilesTraveled, int diceRoll)

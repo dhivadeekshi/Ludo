@@ -10,6 +10,9 @@ public interface Player
     void ClearListeners();
 
 
+    void HighlightAllPawnsInStart();
+    void HighlightPawnsInOpenTraveledMax(int tiles);
+
     Pawn.PawnID GetAPawnOutOfStart();
     int GetTilesTraveled(Pawn.PawnID pawnID);
     void ReturnPawnToStart(Pawn.PawnID pawnID);
@@ -17,7 +20,9 @@ public interface Player
     int CountPawnsInStart();
     int CountPawnsInHome();
     int CountPawnsInOpen();
+    int CountPawnsInOpenTraveledMax(int lessThan);
     List<Pawn.PawnID> GetAllPawnsInStart();
+    List<Pawn.PawnID> GetAllPawnsInOpenTraveledMax(int lessThan);
     List<Pawn.PawnID> GetAllPawnsInOpen();
     List<Pawn.PawnID> GetAllPawns();
 }

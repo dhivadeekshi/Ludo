@@ -22,6 +22,16 @@ public class CommonPlayer
         this.onDiceRolled = null;
     }
 
+    public void HighlightAllPawnsInStart()
+    {
+
+    }
+
+    public void HighlightPawnsInOpenTraveledMax(int tiles)
+    {
+
+    }
+
     public bool IsLocalPlayer() { return playerType == PlayerType.LocalPlayer; }
     public bool IsOnlinePlayer() { return playerType == PlayerType.OnlinePlayer; }
     public LudoType GetPlayerBoardType() { return playerBoardType; }
@@ -34,8 +44,10 @@ public class CommonPlayer
     public int CountPawnsInStart() {return boardPlayer.CountPawnsInStart(); }
     public int CountPawnsInHome() { return boardPlayer.CountPawnsInHome(); }
     public int CountPawnsInOpen() { return boardPlayer.CountPawnsInOpen(); }
+    public int CountPawnsInOpenTraveledMax(int tiles) { return boardPlayer.CountPawnsInOpenTraveledMax(tiles); }
     public List<Pawn.PawnID> GetAllPawnsInStart() { return boardPlayer.GetAllPawnsInStart(); }
     public List<Pawn.PawnID> GetAllPawnsInOpen() { return boardPlayer.GetAllPawnsInOpen(); }
+    public List<Pawn.PawnID> GetAllPawnsInOpenTraveledMax(int tiles) { return boardPlayer.GetAllPawnsInOpenTraveledMax(tiles); }
     public List<Pawn.PawnID> GetAllPawns() { return boardPlayer.GetAllPawns(); }
     // Board Player End
 
