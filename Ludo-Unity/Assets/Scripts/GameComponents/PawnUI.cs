@@ -17,6 +17,8 @@ public class PawnUI : MonoBehaviour
     public void Init(PawnType pawnType, PawnUIID pawnID)
     {
         UpdateVisuals(pawnType);
+        SetButtonListener(pawnType);
+        DisableButton();
         this.pawnID = pawnID;
     }
 
@@ -24,12 +26,14 @@ public class PawnUI : MonoBehaviour
     {
         this.onPawnTapped = onPawnTapped;
         highlight.SetActive(true);
+        EnableButton();
     }
 
     public void StopHighlight()
     {
         onPawnTapped = null;
         highlight.SetActive(false);
+        DisableButton();
     }
 
     public void MoveToPosition(Vector2 position, UnityAction<PawnUIID> onMoveCompleted)
@@ -64,7 +68,6 @@ public class PawnUI : MonoBehaviour
     void Start()
     {
         StopHighlight();
-        button.onClick.AddListener(ButtonTapped);
     }
 
     // Update is called once per frame
@@ -78,6 +81,15 @@ public class PawnUI : MonoBehaviour
         if (onPawnTapped != null)
             onPawnTapped.Invoke(pawnID);
     }
+
+    private void SetButtonListener(PawnType pawnType)
+    {
+        button = images[(int)pawnType].GetComponent<Button>();
+        button.onClick.AddListener(ButtonTapped);
+    }
+
+    private void EnableButton() => button.interactable = true;
+    private void DisableButton() { if (button != null) button.interactable = false; }
 
     private void UpdateVisuals(PawnType pawnType)
     {
