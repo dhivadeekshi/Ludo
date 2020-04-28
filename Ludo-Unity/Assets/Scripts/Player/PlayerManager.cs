@@ -18,13 +18,14 @@ public class PlayerManager
     }
 
     // Temp disabled, waiting for server implementation
-    /*public*/private void CreateOnlinePlayer(LudoType playerType)
+    /*public*/
+    private void CreateOnlinePlayer(LudoType playerType)
     {
         var player = new OnlinePlayer(playerType);
         //rulesManager.AddPlayer(player);
         players.Add(player);
     }
-    
+
     public void StartPlay(Action onGameOver)
     {
         this.onGameOver = onGameOver;
@@ -35,24 +36,7 @@ public class PlayerManager
 
 
     public void Update()
-    { 
-        switch (gamePlayState)
-        {
-            case GamePlayState.WaitingForPlayerInteraction:
-                break;
-            case GamePlayState.HighlightPawns:
-                HighlightPawns();
-                break;
-            case GamePlayState.MovePawns:
-                gamePlayState = GamePlayState.WaitingForPlayerInteraction;
-                OnMoveEnded();
-                break;
-            case GamePlayState.TurnComplete:
-                GiveTurnToNextPlayer();
-                rulesManager.ChangeTurn(CurrentPlayer);
-                gamePlayState = GamePlayState.WaitingForPlayerInteraction;
-                break;
-        }
+    {
     }
 
     public string[] GetPlayerNamesByRank()
@@ -62,19 +46,7 @@ public class PlayerManager
         return playerNames;
     }
 
-
-    private enum GamePlayState
-    {
-        None,
-        WaitingForPlayerInteraction,
-        RollDice,
-        HighlightPawns,
-        MovePawns,
-        TurnComplete
-    }
-
     private List<Player> players = new List<Player>();
-    private GamePlayState gamePlayState = GamePlayState.None;
     private int currentTurnPlayer = 0;
     private DelayManager delayManager = null;
     private RulesManager rulesManager = null;
@@ -101,54 +73,56 @@ public class PlayerManager
 
     private void OnDiceRolled(int diceRoll)
     {
-        switch(rulesManager.CheckRulesOnDiceRoll(diceRoll))
+        bool isRollToGetPawnOut = rulesManager.IsHighlightPawnsInStart(diceRoll);
+        switch (rulesManager.CheckRulesOnDiceRoll(diceRoll))
         {
             case RulesManager.DiceRollStates.Highlight:
-                if (rulesManager.IsHighlightPawnsInStart(diceRoll))
-                    CurrentPlayer.HighlightAllPawnsInStart();
-                CurrentPlayer.HighlightPawnsInOpenTraveledMax(rulesManager.GetTilesTraveledMaxToAllowMove(diceRoll));
-                gamePlayState = GamePlayState.HighlightPawns;
+                if (isRollToGetPawnOut)
+                    CurrentPlayer.HighlightAllPawnsInStart(GetSelectedPawnOutOfStart);
+                CurrentPlayer.HighlightPawnsInOpenTraveledMax(rulesManager.GetTilesTraveledMaxToAllowMove(diceRoll),
+                    (pawnID) => { MoveSelectedPawn(pawnID, diceRoll); });
                 break;
             case RulesManager.DiceRollStates.Move: // Will always be only one move possible
-                var pawns = CurrentPlayer.GetAllPawnsInStart();
-                if (pawns != null) CurrentPlayer.GetAPawnOutOfStart();
-                gamePlayState = GamePlayState.MovePawns;
+                if (isRollToGetPawnOut)
+                    CurrentPlayer.GetLastPawnOutOfStart(OnMoveEnded);
+                else
+                    CurrentPlayer.MakeOnlyPossibleMove(diceRoll, OnMoveEnded);
                 break;
             case RulesManager.DiceRollStates.EndTurn:
                 EndTurnAfter(Constants.WaitForDiceDisplayDuration);
                 break;
-        }   
+        }
     }
 
     private void OnMoveEnded()
     {
-        switch(rulesManager.CheckRulesOnMoveEnd(Pawn.PawnID.nullID)) // TODO need to pass the id of the pawn moved
+        switch (rulesManager.CheckRulesOnMoveEnd(Pawn.PawnID.nullID)) // TODO need to pass the id of the pawn moved
         {
             case RulesManager.PawnMoveStates.EndTurn:
+                EndTurnImmediately();
                 break;
             case RulesManager.PawnMoveStates.RollDice:
+                CurrentPlayer.GainedExtraDiceThrow();
+                CurrentPlayer.SetListeners(OnDiceRolled);
                 break;
             case RulesManager.PawnMoveStates.KillPawn:
+                // TEMP ------------
+                EndTurnAfter(Constants.WaitForDiceDisplayDuration);
+                // -----------------
                 break;
             case RulesManager.PawnMoveStates.GameOver:
                 if (onGameOver != null)
                     onGameOver.Invoke();
-                gamePlayState = GamePlayState.None;
                 break;
         }
-        // TEMP ------------
-        EndTurnAfter(Constants.WaitForDiceDisplayDuration);
-        // -----------------
     }
 
-    private void HighlightPawns()
+    private void GetSelectedPawnOutOfStart(Pawn.PawnID pawnID) => CurrentPlayer.GetPawnOutOfStart(pawnID, OnMoveEnded);
+    private void MoveSelectedPawn(Pawn.PawnID pawnID, int diceRoll) => CurrentPlayer.MovePawn(pawnID, diceRoll, OnMoveEnded);
+    private void EndTurnAfter(float secs) => delayManager.WaitForDuration(secs, EndTurnImmediately);
+    private void EndTurnImmediately()
     {
-        gamePlayState = GamePlayState.HighlightPawns;
+        GiveTurnToNextPlayer();
+        rulesManager.ChangeTurn(CurrentPlayer);
     }
-
-    private void EndTurnAfter(float secs)
-    {
-        delayManager.WaitForDuration(secs, () => { gamePlayState = GamePlayState.TurnComplete; });
-    }
-
 }

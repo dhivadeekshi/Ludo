@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public class OnlinePlayer : CommonPlayer, Player
@@ -19,5 +20,23 @@ public class OnlinePlayer : CommonPlayer, Player
     public void SetPlayersTurn()
     {
         throw new System.NotImplementedException();
+    }
+
+    public void HighlightAllPawnsInStart() { }
+    public void HighlightPawnsInOpenTraveledMax(int tiles) { }
+
+    public void GainedExtraDiceThrow()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void HighlightAllPawnsInStart(Action<Pawn.PawnID> onPawnSelected)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void HighlightPawnsInOpenTraveledMax(int tiles, Action<Pawn.PawnID> onPawnSelected)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -10,13 +10,18 @@ public interface Player
     void ClearListeners();
 
 
-    void HighlightAllPawnsInStart();
-    void HighlightPawnsInOpenTraveledMax(int tiles);
+    void GainedExtraDiceThrow();
 
+    void HighlightAllPawnsInStart(Action<Pawn.PawnID> onPawnSelected);
+    void HighlightPawnsInOpenTraveledMax(int tiles, Action<Pawn.PawnID> onPawnSelected);
+    void MakeOnlyPossibleMove(int diceRoll, Action onMoveCompleted);
+    void GetLastPawnOutOfStart(Action onCompleted);
+
+    void GetPawnOutOfStart(Pawn.PawnID pawnID, Action onCompleted);
     Pawn.PawnID GetAPawnOutOfStart();
     int GetTilesTraveled(Pawn.PawnID pawnID);
     void ReturnPawnToStart(Pawn.PawnID pawnID);
-    void MovePawn(Pawn.PawnID pawnID, int tiles);
+    void MovePawn(Pawn.PawnID pawnID, int tiles, Action onMoveCompleted);
     int CountPawnsInStart();
     int CountPawnsInHome();
     int CountPawnsInOpen();

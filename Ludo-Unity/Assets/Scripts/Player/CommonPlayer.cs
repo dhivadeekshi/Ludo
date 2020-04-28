@@ -22,25 +22,19 @@ public class CommonPlayer
         this.onDiceRolled = null;
     }
 
-    public void HighlightAllPawnsInStart()
-    {
-
-    }
-
-    public void HighlightPawnsInOpenTraveledMax(int tiles)
-    {
-
-    }
-
     public bool IsLocalPlayer() { return playerType == PlayerType.LocalPlayer; }
     public bool IsOnlinePlayer() { return playerType == PlayerType.OnlinePlayer; }
     public LudoType GetPlayerBoardType() { return playerBoardType; }
+
+    public void GetPawnOutOfStart(Pawn.PawnID pawnID, Action onCompleted) { }
+    public void GetLastPawnOutOfStart(Action onCompleted) { }
+    public void MakeOnlyPossibleMove(int tiles, Action onMoveCompleted) { }
 
     // Board Player Start
     public Pawn.PawnID GetAPawnOutOfStart() { return boardPlayer.GetAPawnOutOfStart(); }
     public int GetTilesTraveled(Pawn.PawnID pawnID) { return boardPlayer.GetTilesTraveled(pawnID); } 
     public void ReturnPawnToStart(Pawn.PawnID pawnID) { boardPlayer.ReturnPawnToStart(pawnID); }
-    public void MovePawn(Pawn.PawnID pawnID, int tiles) { boardPlayer.MovePawn(pawnID, tiles); }
+    public void MovePawn(Pawn.PawnID pawnID, int tiles, Action onMoveCompleted) { boardPlayer.MovePawn(pawnID, tiles); }
     public int CountPawnsInStart() {return boardPlayer.CountPawnsInStart(); }
     public int CountPawnsInHome() { return boardPlayer.CountPawnsInHome(); }
     public int CountPawnsInOpen() { return boardPlayer.CountPawnsInOpen(); }

@@ -12,6 +12,7 @@ public class PawnUI : MonoBehaviour
         public PawnUIID(int id) => this.id = id;
         public static PawnUIID nullID { get { return new PawnUIID(-1); } }
         public bool equals(PawnUIID otherID) => this.id == otherID.id;
+        public override string ToString() => string.Format("{0}", id);
     }
 
     public void Init(PawnType pawnType, PawnUIID pawnID)
@@ -80,6 +81,7 @@ public class PawnUI : MonoBehaviour
     {
         if (onPawnTapped != null)
             onPawnTapped.Invoke(pawnID);
+        Debug.Log("Pawn Tapped : " + pawnType + " : " + pawnID);
     }
 
     private void SetButtonListener(PawnType pawnType)
