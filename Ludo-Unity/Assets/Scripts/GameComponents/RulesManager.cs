@@ -47,7 +47,7 @@ public class RulesManager
     public bool IsHighlightPawnsInStart(int diceRoll) { return diceRoll == Constants.DiceRoll.RollToGetOutFromStart; }
     public bool IsCurrentPlayerWon() { return IsPlayerWon(CurrentPlayer); }
     public bool IsPlayerWon(Player player) { return player.CountPawnsInHome() == Constants.NoOfPawnsPerPlayer; }
-    public int GetTilesTraveledMaxToAllowMove(int diceRoll) { return Constants.DiceRoll.TotalStepsToReachHome - diceRoll; }
+    public int GetTilesTraveledMaxToAllowMove(int diceRoll) { return Constants.Tiles.TotalStepsToReachHome - diceRoll; }
 
     private Player CurrentPlayer { get; set; }
     private List<Player> players = new List<Player>();
@@ -118,7 +118,7 @@ public class RulesManager
 
     private void CheckIfPawnReachedHome(Pawn.PawnID pawnID)
     {
-        if (CurrentPlayer.GetTilesTraveled(pawnID) == Constants.DiceRoll.TotalStepsToReachHome)
+        if (CurrentPlayer.GetTilesTraveled(pawnID) == Constants.Tiles.TotalStepsToReachHome)
             reachedHomeExtraTurns++;
     }
 
@@ -129,6 +129,6 @@ public class RulesManager
 
     private bool CanReachHome(int tilesTraveled, int diceRoll)
     {
-        return tilesTraveled + diceRoll == Constants.DiceRoll.TotalStepsToReachHome;
+        return tilesTraveled + diceRoll == Constants.Tiles.TotalStepsToReachHome;
     }
 }

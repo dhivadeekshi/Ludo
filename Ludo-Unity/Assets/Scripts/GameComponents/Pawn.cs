@@ -14,8 +14,8 @@ public class Pawn
     public int TilesTravled { get; private set; }
     public PawnID pawnID { get; private set; }
 
-    public bool IsInStart { get { return TilesTravled == Constants.DiceRoll.StartTileNo; } }
-    public bool IsHome { get { return TilesTravled == Constants.DiceRoll.TotalStepsToReachHome; } }
+    public bool IsInStart { get { return TilesTravled == Constants.Tiles.StartTileNo; } }
+    public bool IsHome { get { return TilesTravled == Constants.Tiles.TotalStepsToReachHome; } }
     public bool IsSafe { get { return IsInStart || IsHome || IsInInnerTile() || IsInSafeTile(); } }
     public bool IsPawnOut { get { return !IsHome && !IsInStart; } }
 
@@ -23,18 +23,18 @@ public class Pawn
     {
         PawnType = pawnType;
         this.pawnID = pawnID;
-        TilesTravled = Constants.DiceRoll.StartTileNo;
+        TilesTravled = Constants.Tiles.StartTileNo;
     }
 
     public void ReturnToStart()
     {
-        TilesTravled = Constants.DiceRoll.StartTileNo;
+        TilesTravled = Constants.Tiles.StartTileNo;
     }
 
     public bool GetOutOfStart()
     {
         if (!IsInStart) return false;
-        TilesTravled = Constants.DiceRoll.FirstTileNoOut;
+        TilesTravled = Constants.Tiles.FirstTileNoOut;
         return true;
     }
 
@@ -49,13 +49,13 @@ public class Pawn
     {
         // Assert SafeTiles is in Ascending order
         int lo = 0;
-        int hi = Constants.DiceRoll.SafeTiles.Length - 1;
+        int hi = Constants.Tiles.SafeTiles.Length - 1;
         while(lo <= hi)
         {
             int mid = lo + ((hi - lo) / 2);
-            if (TilesTravled < Constants.DiceRoll.SafeTiles[mid])
+            if (TilesTravled < Constants.Tiles.SafeTiles[mid])
                 hi = mid - 1;
-            else if (TilesTravled > Constants.DiceRoll.SafeTiles[mid])
+            else if (TilesTravled > Constants.Tiles.SafeTiles[mid])
                 lo = mid + 1;
             else
                 return true;
@@ -65,7 +65,7 @@ public class Pawn
 
     private bool IsInInnerTile()
     {
-        return Constants.DiceRoll.InnerTileStarting <= TilesTravled && TilesTravled <= Constants.DiceRoll.InnerTileEnding;
+        return Constants.Tiles.InnerTileStarting <= TilesTravled && TilesTravled <= Constants.Tiles.InnerTileEnding;
     }
     #endregion
 }

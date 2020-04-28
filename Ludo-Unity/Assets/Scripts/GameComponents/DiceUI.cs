@@ -112,7 +112,7 @@ public class DiceUI : MonoBehaviour
 
     private IEnumerator DiceRollAnimation()
     {
-        yield return new WaitForSeconds(Constants.DiceRollAnimationDuration);
+        yield return new WaitForSeconds(Constants.DiceRoll.DiceRollAnimationDuration);
         if (onAnimationEnded != null)
             onAnimationEnded.Invoke();
         StopDiceRollAnimation();

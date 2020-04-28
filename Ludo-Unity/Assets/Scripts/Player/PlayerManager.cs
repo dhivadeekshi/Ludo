@@ -89,7 +89,7 @@ public class PlayerManager
                     CurrentPlayer.MakeOnlyPossibleMove(diceRoll, OnMoveEnded);
                 break;
             case RulesManager.DiceRollStates.EndTurn:
-                EndTurnAfter(Constants.WaitForDiceDisplayDuration);
+                EndTurnAfter(Constants.DiceRoll.WaitForDiceDisplayDuration);
                 break;
         }
     }
@@ -107,7 +107,7 @@ public class PlayerManager
                 break;
             case RulesManager.PawnMoveStates.KillPawn:
                 // TEMP ------------
-                EndTurnAfter(Constants.WaitForDiceDisplayDuration);
+                EndTurnAfter(Constants.DiceRoll.WaitForDiceDisplayDuration);
                 // -----------------
                 break;
             case RulesManager.PawnMoveStates.GameOver:
