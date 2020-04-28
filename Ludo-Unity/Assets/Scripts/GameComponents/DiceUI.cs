@@ -38,7 +38,7 @@ public class DiceUI : MonoBehaviour
     public void DisableInteraction()
     {
         for (int i = 0; i < diceFaces.Length; i++)
-            diceFaces[i].GetComponent<Button>().interactable = true;
+            diceFaces[i].GetComponent<Button>().interactable = false;
     }
 
     public void SetListeners(UnityAction onDiceTapped)
