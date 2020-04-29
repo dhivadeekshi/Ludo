@@ -28,21 +28,31 @@ public class LocalPlayer : CommonPlayer,  Player
     public void HighlightAllPawnsInStart(Action<Pawn.PawnID> onPawnSelected) =>
         boardPlayerUI.HighlightPawns(GetAllPawnUIsInStart(), (pawnUIID) => { OnPawnTapped(pawnUIID, onPawnSelected); });
 
-    public void HighlightPawnsInOpenTraveledMax(int tiles, Action<Pawn.PawnID> onCompleted)
-    {
-
-    }
+    public void HighlightPawnsInOpenTraveledMax(int tiles, Action<Pawn.PawnID> onPawnSelected) =>
+        boardPlayerUI.HighlightPawns(GetAllPawnUIsTraveledMax(tiles), (pawnUIID) => { OnPawnTapped(pawnUIID, onPawnSelected); });
 
     public void GainedExtraDiceThrow() => EnableDice();
 
-    public void GetLastPawnOutOfStart()
+    public new void GetPawnOutOfStart(Pawn.PawnID pawnID, Action onCompleted) 
     {
-
+        var pawnData = GetPawnData(pawnID);
+        boardPlayerUI.GetPawnOutOfStart(pawnData.pawnUI);
+        boardPlayer.GetPawnOutOfStart(pawnID);
+        pawnsInStart.Remove(pawnData);
+        pawnsInOpen.Add(pawnData);
+        onCompleted.Invoke();
     }
+    public new void GetLastPawnOutOfStart(Action onCompleted) => GetPawnOutOfStart(pawnsInStart[0].pawn, onCompleted);
+    public new void MakeOnlyPossibleMove(int tiles, Action onMoveCompleted) => MovePawn(pawnsInOpen[0].pawn, tiles, onMoveCompleted);
 
-    public void MakeOnlyPossibleMove(int diceRoll)
+    public void MovePawn(Pawn.PawnID pawnID, int tiles, Action onMoveCompleted)
     {
-
+        var pawnData = GetPawnData(pawnID);
+        int tileNo = TileManager.Instance.GetTileNo(playerBoardType, boardPlayer.GetTilesTraveled(pawnID) + tiles);
+        UnityEngine.Debug.Log("Move Pawn To : " + tileNo);
+        boardPlayerUI.MovePawnToTile(pawnData.pawnUI, tileNo, () => {
+            boardPlayer.MovePawn(pawnID, tiles); onMoveCompleted.Invoke();
+        });
     }
 
     protected override PlayerType playerType { get { return PlayerType.LocalPlayer; } }
@@ -83,6 +93,15 @@ public class LocalPlayer : CommonPlayer,  Player
         return pawnUIs;
     }
 
+    private List<PawnUI.PawnUIID> GetAllPawnUIsTraveledMax(int tiles)
+    {
+        var pawnUIs = new List<PawnUI.PawnUIID>();
+        var pawns = GetAllPawnsInOpenTraveledMax(tiles);
+        foreach (var pawn in pawns)
+            pawnUIs.Add(GetPawnData(pawn).pawnUI);
+        return pawnUIs;
+    }
+
     private void OnPawnTapped(PawnUI.PawnUIID pawnUI, Action<Pawn.PawnID> onPawnSelected)
     {
         StopAllHighlights();
@@ -95,7 +114,7 @@ public class LocalPlayer : CommonPlayer,  Player
 
     private PawnData GetPawnData(PawnUI.PawnUIID pawnUIID)
     {
-        foreach(var pawnData in pawnsInOpen)
+        foreach(var pawnData in pawnsInStart)
         {
             if (pawnData.pawnUI.equals(pawnUIID))
                 return pawnData;
@@ -110,11 +129,24 @@ public class LocalPlayer : CommonPlayer,  Player
 
     private PawnData GetPawnData(Pawn.PawnID pawnID)
     {
-        foreach (var pawnData in pawnsInOpen)
+        var pawnData = GetPawnDataInStart(pawnID);
+        if (pawnData != null) return pawnData;
+        pawnData = GetPawnDataInOpen(pawnID);
+        return pawnData;
+    }
+
+    private PawnData GetPawnDataInStart(Pawn.PawnID pawnID)
+    {
+        foreach (var pawnData in pawnsInStart)
         {
             if (pawnData.pawn.equals(pawnID))
                 return pawnData;
         }
+        return null;
+    }
+    
+    private PawnData GetPawnDataInOpen(Pawn.PawnID pawnID)
+    {
         foreach (var pawnData in pawnsInOpen)
         {
             if (pawnData.pawn.equals(pawnID))

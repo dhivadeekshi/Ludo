@@ -39,4 +39,9 @@ public class OnlinePlayer : CommonPlayer, Player
     {
         throw new NotImplementedException();
     }
+
+    public void MovePawn(Pawn.PawnID pawnID, int tiles, Action onMoveCompleted)
+    {
+        throw new NotImplementedException();
+    }
 }

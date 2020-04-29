@@ -16,7 +16,6 @@ public class GameScene : MonoBehaviour
 
     private Board board = null;
     private PlayerManager playerManager = null;
-    private TileManager tileManager = null;
 
     private enum GameState
     {
@@ -35,8 +34,7 @@ public class GameScene : MonoBehaviour
     {
         board = new Board();
         playerManager = new PlayerManager(delayManager);
-        tileManager = new TileManager();
-        uiTileManager.SetTileManager(tileManager);
+        TileManager.CreateTileManager();
         SetListeners();
     }
 
@@ -48,7 +46,7 @@ public class GameScene : MonoBehaviour
             default: // All Waiting states
                 break;
             case GameState.SelectPawn:
-                hud.ShowSelectPawnPopup(onPawnSelected: PlayerSelectedPawn);
+                hud.ShowSelectPawnPopup(onPawnSelected: CreateBoardWithPawnSelected);
                 gameState = GameState.WaitingForPawnSelection;
                 break;
             case GameState.InitGameBoard:
@@ -89,12 +87,13 @@ public class GameScene : MonoBehaviour
         gameState = GameState.GameOver;
     }
 
-    private void PlayerSelectedPawn(LudoType pawn)
+    private void CreateBoardWithPawnSelected(LudoType pawn)
     {
         LudoType player1Type = pawn;
         LudoType player2Type = (LudoType)(((int)pawn + 2) % (int)LudoType.END);
         Debug.Log("PlayerSelectedPawn player1Type:" + player1Type + " player2Type:" + player2Type);
         CreateTwoPlayerBoard(player1Type, player2Type, "You", "Opponent");
+        TileManager.Instance.SetBottomLeftPlayer(player1Type);
         gameState = GameState.InitGameBoard;
     }
 
@@ -109,6 +108,7 @@ public class GameScene : MonoBehaviour
     {
         BoardPlayerUI boardPlayerUI = boardUI.GetPlayer(playerType);
         BoardPlayer boardPlayer = board.CreatePlayer(playerType);
+        boardPlayerUI.SetUITileManager(uiTileManager);
         playerManager.CreateLocalPlayer(playerType, boardPlayer, boardPlayerUI);
     }
 

@@ -12,13 +12,15 @@ public class BoardPlayer
 
     public PawnID GetAPawnOutOfStart()
     {
-        foreach(var pawn in pawns)
+        foreach (var pawn in pawns)
         {
             if (pawn.GetOutOfStart())
                 return pawn.pawnID;
         }
         return PawnID.nullID;
     }
+
+    public void GetPawnOutOfStart(PawnID pawnID) => GetPawnForID(pawnID).GetOutOfStart();
 
     public void ReturnPawnToStart(PawnID pawnID)
     {

@@ -34,7 +34,6 @@ public class CommonPlayer
     public Pawn.PawnID GetAPawnOutOfStart() { return boardPlayer.GetAPawnOutOfStart(); }
     public int GetTilesTraveled(Pawn.PawnID pawnID) { return boardPlayer.GetTilesTraveled(pawnID); } 
     public void ReturnPawnToStart(Pawn.PawnID pawnID) { boardPlayer.ReturnPawnToStart(pawnID); }
-    public void MovePawn(Pawn.PawnID pawnID, int tiles, Action onMoveCompleted) { boardPlayer.MovePawn(pawnID, tiles); }
     public int CountPawnsInStart() {return boardPlayer.CountPawnsInStart(); }
     public int CountPawnsInHome() { return boardPlayer.CountPawnsInHome(); }
     public int CountPawnsInOpen() { return boardPlayer.CountPawnsInOpen(); }
@@ -57,7 +56,6 @@ public class CommonPlayer
 
     protected BoardPlayer boardPlayer = null;
     protected BoardPlayerUI boardPlayerUI = null;
-
 
     protected void DiceRolled(int diceRoll)
     {

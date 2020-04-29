@@ -4,6 +4,11 @@ using PlayerType = LudoType;
 
 public class TileManager
 {
+    #region Singleton
+    public static TileManager Instance { get; private set; }
+    public static void CreateTileManager() => Instance = new TileManager();
+    #endregion
+
     public void SetBottomLeftPlayer(PlayerType bottomLeftPlayer) => this.bottomLeftPlayer = bottomLeftPlayer;
     public int GetStartingTileNo(PlayerType playerType) => Constants.Tiles.StartingTilesNo[GetPlayerIndex(playerType)];
     public int GetStartingInnerTileNo(PlayerType playerType) => CalculateTileNo(GetStartingTileNo(playerType), Constants.Tiles.InnerTileStarting);
@@ -96,5 +101,5 @@ public class TileManager
     }
 
     private PlayerType bottomLeftPlayer = PlayerType.Red;
-
+    private TileManager() { } // Singleton object
 }

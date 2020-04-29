@@ -15,6 +15,7 @@ public class BoardPlayerUI : MonoBehaviour
         this.playerType = playerType;
     }
 
+    public void SetUITileManager(UITileManager uiTileManager) => this.uiTileManager = uiTileManager;
     public void SetPlayerName(string playerName)=> playerNameText.text = playerName;
 
     // DICE UI ----------------------------------------
@@ -54,22 +55,18 @@ public class BoardPlayerUI : MonoBehaviour
             pawn.StopHighlight();
     }
 
-    public void ReturnPawnToEmptySlot(PawnUIID pawnUIID)
-    {
-        var pawnUI = GetPawn(pawnUIID);
-        var slot = GetEmptySlot();
-        slot.PutPawnInSlot(pawnUI);
-    }
+    public void GetPawnOutOfStart(PawnUIID pawnUIID) => 
+        TakePawnOutOfSlot(pawnUIID).MoveToPosition(uiTileManager.GetStartingTilePositionFor(playerType), null);
 
-    public void TakePawnOutOfSlot(PawnUIID pawnUIID)
-    {
-        var slot = GetSlotContains(pawnUIID);
-        slot.TakePawnOutOfSlot();
-    }
-
-    public void MovePawn(PawnUIID pawnUIID, Vector2 position, UnityAction<PawnUIID> onMoveCompleted)
-    {
+    public void MovePawn(PawnUIID pawnUIID, Vector2 position, UnityAction<PawnUIID> onMoveCompleted) =>
         GetPawn(pawnUIID).MoveToPosition(position, onMoveCompleted);
+
+    public void MovePawnToTile(PawnUIID pawnUIID, int tileNo, UnityAction onMoveCompleted)
+    {
+        var pawn = GetPawn(pawnUIID);
+        Vector2 position = uiTileManager.GetTilePosition(tileNo);
+        Debug.Log("Move Pawn to : " + position);
+        GetPawn(pawnUIID).MoveToPosition(position, (id) => { onMoveCompleted.Invoke(); });
     }
 
     public List<PawnUIID> GetAllPawns()
@@ -106,6 +103,7 @@ public class BoardPlayerUI : MonoBehaviour
     private PlayerPawnSlotUI[] slots = null;
 
     public PlayerType playerType { get; private set; }
+    private UITileManager uiTileManager = null;
 
     // Start is called before the first frame update
     void Start()
@@ -146,6 +144,19 @@ public class BoardPlayerUI : MonoBehaviour
             if (slot.Contains(pawnUI)) return slot;
         }
         return null;
+    }
+
+    private void ReturnPawnToEmptySlot(PawnUIID pawnUIID)
+    {
+        var pawnUI = GetPawn(pawnUIID);
+        var slot = GetEmptySlot();
+        slot.PutPawnInSlot(pawnUI);
+    }
+
+    private PawnUI TakePawnOutOfSlot(PawnUIID pawnUIID)
+    {
+        var slot = GetSlotContains(pawnUIID);
+        return slot.TakePawnOutOfSlot();
     }
 
     private PawnUI GetPawn(PawnUIID pawnUIID)
