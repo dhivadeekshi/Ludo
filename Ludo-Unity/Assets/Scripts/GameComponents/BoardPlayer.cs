@@ -4,10 +4,9 @@ using PawnID = Pawn.PawnID;
 public class BoardPlayer
 {
     #region USER INTERFACE
-    public BoardPlayer(LudoType playerType, TileManager tileManager)
+    public BoardPlayer(LudoType playerType)
     {
         PlayerType = playerType;
-        this.tileManager = tileManager;
         CreatePawns();
     }
 
@@ -128,7 +127,6 @@ public class BoardPlayer
 
     #region INTERNALS
     private Pawn[] pawns = null;
-    private TileManager tileManager = null;
 
     private void CreatePawns()
     {

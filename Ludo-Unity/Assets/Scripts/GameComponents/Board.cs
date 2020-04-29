@@ -30,7 +30,7 @@ public class Board
 
     public BoardPlayer CreatePlayer(LudoType playerType)
     {
-        BoardPlayer player = new BoardPlayer(playerType, tileManager);
+        BoardPlayer player = new BoardPlayer(playerType);
         boardPlayers.Add(new BoardPlayerInfo(player, playerType, 0)); // TODO update starting tile use tile manager
         return player;
     }
@@ -50,7 +50,6 @@ public class Board
 
     #region INTERNALS
     private List<BoardPlayerInfo> boardPlayers = new List<BoardPlayerInfo>();
-    private TileManager tileManager = null;
     private int currentPlayer = 0;
 
     private int TotalPlayers { get { return boardPlayers.Count; } }

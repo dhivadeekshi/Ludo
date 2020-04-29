@@ -11,9 +11,12 @@ public class GameScene : MonoBehaviour
     private BoardUI boardUI = null;
     [SerializeField]
     private DelayManager delayManager = null;
+    [SerializeField]
+    private UITileManager uiTileManager = null;
 
     private Board board = null;
     private PlayerManager playerManager = null;
+    private TileManager tileManager = null;
 
     private enum GameState
     {
@@ -32,6 +35,8 @@ public class GameScene : MonoBehaviour
     {
         board = new Board();
         playerManager = new PlayerManager(delayManager);
+        tileManager = new TileManager();
+        uiTileManager.SetTileManager(tileManager);
         SetListeners();
     }
 

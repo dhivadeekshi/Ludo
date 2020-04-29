@@ -4490,6 +4490,7 @@ MonoBehaviour:
   hud: {fileID: 151583614}
   boardUI: {fileID: 873872830}
   delayManager: {fileID: 2010045475}
+  uiTileManager: {fileID: 1228968674}
 --- !u!1 &1132964708
 GameObject:
   m_ObjectHideFlags: 0
