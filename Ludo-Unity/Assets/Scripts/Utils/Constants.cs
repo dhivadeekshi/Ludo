@@ -32,5 +32,7 @@ public class Constants
         public const string IdleAnimationName = "PawnIdle";
         public const string HighlightAnimationName = "PawnHighlight";
         public const string MoveHighlightAnimationName = "PawnHighlight";
+        public const string ShrinkAnimationName = "PawnShrinkToFit";
+        public const string ResetSizeAnimationName = "PawnResetToNormal";
     }
 }

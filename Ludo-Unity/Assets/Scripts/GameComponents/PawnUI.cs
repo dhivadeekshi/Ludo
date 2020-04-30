@@ -20,6 +20,7 @@ public class PawnUI : MonoBehaviour
         UpdateVisuals(pawnType);
         SetButtonListener(pawnType);
         DisableButton();
+        DisableImageRaycastTarget();
         this.pawnID = pawnID;
     }
 
@@ -28,6 +29,7 @@ public class PawnUI : MonoBehaviour
         this.onPawnTapped = onPawnTapped;
         highlight.SetActive(true);
         EnableButton();
+        EnableImageRaycastTarget();
         StartHighlightAnimation();
     }
 
@@ -35,6 +37,7 @@ public class PawnUI : MonoBehaviour
     {
         onPawnTapped = null;
         highlight.SetActive(false);
+        DisableImageRaycastTarget();
         DisableButton();
         StopHighlightAnimation();
     }
@@ -46,6 +49,18 @@ public class PawnUI : MonoBehaviour
              if (onMoveCompleted != null)
                  onMoveCompleted.Invoke(pawnID);
          });
+    }
+
+    public void ShrinkToPosition(Vector2 position)
+    {
+        StartShrinkAnimation();
+        MoveToPosition(position, null);
+    }
+
+    public void ReturnToNormal(Vector2 position)
+    {
+        StartReturnToNormalAnimation();
+        MoveToPosition(position, null);
     }
 
     public void SetPawnPosition(Vector2 position) => transform.position = position;
@@ -62,8 +77,8 @@ public class PawnUI : MonoBehaviour
     private GameObject[] images = null;
     [SerializeField]
     private GameObject highlight = null;
-
-    private Animator highlightAnimator = null;
+    [SerializeField]
+    private Animator animator = null;
     private Button button = null;
 
     private UnityAction<PawnUIID> onPawnTapped = null;
@@ -71,7 +86,6 @@ public class PawnUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        highlightAnimator = GetComponent<Animator>();
         StopHighlight();
     }
 
@@ -83,7 +97,7 @@ public class PawnUI : MonoBehaviour
 
     private void ButtonTapped()
     {
-        Debugger.Log("Pawn Tapped : " + pawnType + " : " + pawnID);
+        Debugger.Log("Pawn Selected : " + pawnType + " : " + pawnID);
         if (onPawnTapped != null)
             onPawnTapped.Invoke(pawnID);
     }
@@ -94,6 +108,8 @@ public class PawnUI : MonoBehaviour
         button.onClick.AddListener(ButtonTapped);
     }
 
+    private void EnableImageRaycastTarget() => button.GetComponent<Image>().raycastTarget = true;
+    private void DisableImageRaycastTarget() { if (button != null) button.GetComponent<Image>().raycastTarget = false; }
     private void EnableButton() => button.interactable = true;
     private void DisableButton() { if (button != null) button.interactable = false; }
 
@@ -103,10 +119,12 @@ public class PawnUI : MonoBehaviour
         images[(int)pawnType].SetActive(true);
         this.pawnType = pawnType;
     }
-
-    private void StopHighlightAnimation() => highlightAnimator.Play(Constants.Pawn.IdleAnimationName);
-    private void StartHighlightAnimation() => highlightAnimator.Play(Constants.Pawn.HighlightAnimationName);
-    private void StartMoveHighlightAnimation() => highlightAnimator.Play(Constants.Pawn.MoveHighlightAnimationName);
+    
+    private void StopHighlightAnimation() => animator.Play(Constants.Pawn.IdleAnimationName);
+    private void StartHighlightAnimation() => animator.Play(Constants.Pawn.HighlightAnimationName);
+    private void StartMoveHighlightAnimation() => animator.Play(Constants.Pawn.MoveHighlightAnimationName);
+    private void StartShrinkAnimation() => animator.Play(Constants.Pawn.ShrinkAnimationName);
+    private void StartReturnToNormalAnimation() => animator.Play(Constants.Pawn.ResetSizeAnimationName);
     #endregion
 
 }

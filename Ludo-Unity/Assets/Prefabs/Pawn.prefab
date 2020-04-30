@@ -529,6 +529,7 @@ MonoBehaviour:
   - {fileID: 7865798233577976435}
   - {fileID: 1894830885863890308}
   highlight: {fileID: 531749278377936564}
+  animator: {fileID: 6708407213067618759}
 --- !u!95 &6708407213067618759
 Animator:
   serializedVersion: 3
