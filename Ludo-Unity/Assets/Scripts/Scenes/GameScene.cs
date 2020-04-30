@@ -101,16 +101,16 @@ public class GameScene : MonoBehaviour
     private void CreateTwoPlayerBoard(LudoType player1Type, LudoType player2Type, string player1Name, string player2Name)
     {
         boardUI.InitTwoPlayerBoard(player1Type, player1Name, player2Name);
-        CreateLocalPlayer(player1Type);
-        CreateLocalPlayer(player2Type);
+        CreateLocalPlayer(player1Type, player1Name);
+        CreateLocalPlayer(player2Type, player2Name);
     }
 
-    private void CreateLocalPlayer(LudoType playerType)
+    private void CreateLocalPlayer(LudoType playerType, string playerName)
     {
         BoardPlayerUI boardPlayerUI = boardUI.GetPlayer(playerType);
         BoardPlayer boardPlayer = board.CreatePlayer(playerType);
         boardPlayerUI.SetUITileManager(uiTileManager);
-        playerManager.CreateLocalPlayer(playerType, boardPlayer, boardPlayerUI);
+        playerManager.CreateLocalPlayer(playerType, playerName, boardPlayer, boardPlayerUI);
     }
 
     private void GotoMainMenu()

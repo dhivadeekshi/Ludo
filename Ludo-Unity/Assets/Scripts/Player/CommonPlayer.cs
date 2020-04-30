@@ -26,9 +26,9 @@ public class CommonPlayer
     public bool IsOnlinePlayer() { return playerType == PlayerType.OnlinePlayer; }
     public LudoType GetPlayerBoardType() { return playerBoardType; }
 
-    public void GetPawnOutOfStart(Pawn.PawnID pawnID, Action onCompleted) { }
-    public void GetLastPawnOutOfStart(Action onCompleted) { }
-    public void MakeOnlyPossibleMove(int tiles, Action onMoveCompleted) { }
+    public void GetPawnOutOfStart(Pawn.PawnID pawnID, Action<Pawn.PawnID> onCompleted) { }
+    public void GetLastPawnOutOfStart(Action<Pawn.PawnID> onCompleted) { }
+    public void MakeOnlyPossibleMove(int tiles, Action<Pawn.PawnID> onMoveCompleted) { }
 
     // Board Player Start
     public Pawn.PawnID GetAPawnOutOfStart() { return boardPlayer.GetAPawnOutOfStart(); }
@@ -51,6 +51,7 @@ public class CommonPlayer
     protected virtual PlayerType playerType { get; }
     protected LudoType playerBoardType = LudoType.Red;
     protected LudoType playerOriginalType = LudoType.Red;
+    protected string playerName = string.Empty;
 
     protected Action<int> onDiceRolled = null;
 
@@ -59,6 +60,7 @@ public class CommonPlayer
 
     protected void DiceRolled(int diceRoll)
     {
+        Debugger.Log("[CommonPlayer] DiceRolled " + diceRoll);
         boardPlayerUI.DisplayDiceFace(diceRoll);
         if (onDiceRolled != null)
             onDiceRolled.Invoke(diceRoll);
@@ -70,6 +72,11 @@ public class CommonPlayer
     }
 
     protected virtual void OnAnimationEnded() { }
+
+    public override string ToString()
+    {
+        return playerName;
+    }
     #endregion
 
 }

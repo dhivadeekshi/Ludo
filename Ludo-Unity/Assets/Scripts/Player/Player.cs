@@ -14,14 +14,14 @@ public interface Player
 
     void HighlightAllPawnsInStart(Action<Pawn.PawnID> onPawnSelected);
     void HighlightPawnsInOpenTraveledMax(int tiles, Action<Pawn.PawnID> onPawnSelected);
-    void MakeOnlyPossibleMove(int diceRoll, Action onMoveCompleted);
-    void GetLastPawnOutOfStart(Action onCompleted);
+    void MakeOnlyPossibleMove(int diceRoll, Action<Pawn.PawnID> onMoveCompleted);
+    void GetLastPawnOutOfStart(Action<Pawn.PawnID> onCompleted);
 
-    void GetPawnOutOfStart(Pawn.PawnID pawnID, Action onCompleted);
+    void GetPawnOutOfStart(Pawn.PawnID pawnID, Action<Pawn.PawnID> onCompleted);
     Pawn.PawnID GetAPawnOutOfStart();
     int GetTilesTraveled(Pawn.PawnID pawnID);
     void ReturnPawnToStart(Pawn.PawnID pawnID);
-    void MovePawn(Pawn.PawnID pawnID, int tiles, Action onMoveCompleted);
+    void MovePawn(Pawn.PawnID pawnID, int tiles, Action<Pawn.PawnID> onMoveCompleted);
     int CountPawnsInStart();
     int CountPawnsInHome();
     int CountPawnsInOpen();

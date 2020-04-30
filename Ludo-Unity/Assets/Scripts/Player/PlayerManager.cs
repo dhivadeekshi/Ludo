@@ -10,9 +10,9 @@ public class PlayerManager
         rulesManager = new RulesManager();
     }
 
-    public void CreateLocalPlayer(LudoType playerType, BoardPlayer boardPlayer, BoardPlayerUI boardPlayerUI)
+    public void CreateLocalPlayer(LudoType playerType, string playerName, BoardPlayer boardPlayer, BoardPlayerUI boardPlayerUI)
     {
-        var player = new LocalPlayer(playerType, boardPlayer, boardPlayerUI);
+        var player = new LocalPlayer(playerType, playerName, boardPlayer, boardPlayerUI);
         rulesManager.AddPlayer(player);
         players.Add(player);
     }
@@ -94,16 +94,15 @@ public class PlayerManager
         }
     }
 
-    private void OnMoveEnded()
+    private void OnMoveEnded(Pawn.PawnID pawnID)
     {
-        switch (rulesManager.CheckRulesOnMoveEnd(Pawn.PawnID.nullID)) // TODO need to pass the id of the pawn moved
+        switch (rulesManager.CheckRulesOnMoveEnd(pawnID))
         {
             case RulesManager.PawnMoveStates.EndTurn:
-                EndTurnImmediately();
+                EndTurnAfter(Constants.DiceRoll.WaitForDiceDisplayDuration);
                 break;
             case RulesManager.PawnMoveStates.RollDice:
                 CurrentPlayer.GainedExtraDiceThrow();
-                CurrentPlayer.SetListeners(OnDiceRolled);
                 break;
             case RulesManager.PawnMoveStates.KillPawn:
                 // TEMP ------------
@@ -124,5 +123,6 @@ public class PlayerManager
     {
         GiveTurnToNextPlayer();
         rulesManager.ChangeTurn(CurrentPlayer);
+        Debugger.Log("[PlayerManager] Player turn changed to " + CurrentPlayer.ToString());
     }
 }

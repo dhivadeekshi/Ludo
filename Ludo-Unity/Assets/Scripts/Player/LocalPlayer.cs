@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class LocalPlayer : CommonPlayer,  Player
+public class LocalPlayer : CommonPlayer, Player
 {
-    public LocalPlayer(LudoType playerType, BoardPlayer boardPlayer, BoardPlayerUI boardPlayerUI)
+    public LocalPlayer(LudoType playerType, string playerName, BoardPlayer boardPlayer, BoardPlayerUI boardPlayerUI)
     {
         playerBoardType = playerType;
+        this.playerName = playerName;
         playerOriginalType = playerType;
         this.boardPlayer = boardPlayer;
         this.boardPlayerUI = boardPlayerUI;
@@ -33,25 +34,26 @@ public class LocalPlayer : CommonPlayer,  Player
 
     public void GainedExtraDiceThrow() => EnableDice();
 
-    public new void GetPawnOutOfStart(Pawn.PawnID pawnID, Action onCompleted) 
+    public new void GetPawnOutOfStart(Pawn.PawnID pawnID, Action<Pawn.PawnID> onCompleted)
     {
         var pawnData = GetPawnData(pawnID);
         boardPlayerUI.GetPawnOutOfStart(pawnData.pawnUI);
         boardPlayer.GetPawnOutOfStart(pawnID);
         pawnsInStart.Remove(pawnData);
         pawnsInOpen.Add(pawnData);
-        onCompleted.Invoke();
+        onCompleted.Invoke(pawnID);
     }
-    public new void GetLastPawnOutOfStart(Action onCompleted) => GetPawnOutOfStart(pawnsInStart[0].pawn, onCompleted);
-    public new void MakeOnlyPossibleMove(int tiles, Action onMoveCompleted) => MovePawn(pawnsInOpen[0].pawn, tiles, onMoveCompleted);
+    public new void GetLastPawnOutOfStart(Action<Pawn.PawnID> onCompleted) => GetPawnOutOfStart(pawnsInStart[0].pawn, onCompleted);
+    public new void MakeOnlyPossibleMove(int tiles, Action<Pawn.PawnID> onMoveCompleted) => MovePawn(pawnsInOpen[0].pawn, tiles, onMoveCompleted);
 
-    public void MovePawn(Pawn.PawnID pawnID, int tiles, Action onMoveCompleted)
+    public void MovePawn(Pawn.PawnID pawnID, int tiles, Action<Pawn.PawnID> onMoveCompleted)
     {
         var pawnData = GetPawnData(pawnID);
         int tileNo = TileManager.Instance.GetTileNo(playerBoardType, boardPlayer.GetTilesTraveled(pawnID) + tiles);
-        UnityEngine.Debug.Log("Move Pawn To : " + tileNo);
-        boardPlayerUI.MovePawnToTile(pawnData.pawnUI, tileNo, () => {
-            boardPlayer.MovePawn(pawnID, tiles); onMoveCompleted.Invoke();
+        Debugger.Log("Move Pawn To : " + tileNo);
+        boardPlayerUI.MovePawnToTile(pawnData.pawnUI, tileNo, () =>
+        {
+            boardPlayer.MovePawn(pawnID, tiles); onMoveCompleted.Invoke(pawnID);
         });
     }
 
@@ -60,7 +62,7 @@ public class LocalPlayer : CommonPlayer,  Player
     private void EnableDice() => boardPlayerUI.EnableDice(OnDiceTapped);
     private void DisableDice() => boardPlayerUI.DisableDice();
     private void StopAllHighlights() => boardPlayerUI.StopAllHighlights();
-    protected override void OnAnimationEnded()=>DiceRolled(Dice.RollDice());
+    protected override void OnAnimationEnded() => DiceRolled(Dice.RollDice());
 
     private class PawnData
     {
@@ -105,7 +107,7 @@ public class LocalPlayer : CommonPlayer,  Player
     private void OnPawnTapped(PawnUI.PawnUIID pawnUI, Action<Pawn.PawnID> onPawnSelected)
     {
         StopAllHighlights();
-        if(onPawnSelected != null)
+        if (onPawnSelected != null)
         {
             var pawnData = GetPawnData(pawnUI);
             onPawnSelected.Invoke(pawnData.pawn);
@@ -114,12 +116,12 @@ public class LocalPlayer : CommonPlayer,  Player
 
     private PawnData GetPawnData(PawnUI.PawnUIID pawnUIID)
     {
-        foreach(var pawnData in pawnsInStart)
+        foreach (var pawnData in pawnsInStart)
         {
             if (pawnData.pawnUI.equals(pawnUIID))
                 return pawnData;
         }
-        foreach(var pawnData in pawnsInOpen)
+        foreach (var pawnData in pawnsInOpen)
         {
             if (pawnData.pawnUI.equals(pawnUIID))
                 return pawnData;
@@ -144,7 +146,7 @@ public class LocalPlayer : CommonPlayer,  Player
         }
         return null;
     }
-    
+
     private PawnData GetPawnDataInOpen(Pawn.PawnID pawnID)
     {
         foreach (var pawnData in pawnsInOpen)
