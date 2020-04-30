@@ -26,4 +26,11 @@ public class Constants
         public static readonly int[] StartingTilesNo = { 1, 14, 27, 40 }; // Starting tile no for each player clockwise starting from bottom left
 
     }
+
+    public class Pawn
+    {
+        public const string IdleAnimationName = "PawnIdle";
+        public const string HighlightAnimationName = "PawnHighlight";
+        public const string MoveHighlightAnimationName = "PawnHighlight";
+    }
 }

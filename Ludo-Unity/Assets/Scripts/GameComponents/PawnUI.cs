@@ -28,6 +28,7 @@ public class PawnUI : MonoBehaviour
         this.onPawnTapped = onPawnTapped;
         highlight.SetActive(true);
         EnableButton();
+        StartHighlightAnimation();
     }
 
     public void StopHighlight()
@@ -35,6 +36,7 @@ public class PawnUI : MonoBehaviour
         onPawnTapped = null;
         highlight.SetActive(false);
         DisableButton();
+        StopHighlightAnimation();
     }
 
     public void MoveToPosition(Vector2 position, UnityAction<PawnUIID> onMoveCompleted)
@@ -60,7 +62,8 @@ public class PawnUI : MonoBehaviour
     private GameObject[] images = null;
     [SerializeField]
     private GameObject highlight = null;
-    [SerializeField]
+
+    private Animator highlightAnimator = null;
     private Button button = null;
 
     private UnityAction<PawnUIID> onPawnTapped = null;
@@ -68,6 +71,7 @@ public class PawnUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        highlightAnimator = GetComponent<Animator>();
         StopHighlight();
     }
 
@@ -99,7 +103,10 @@ public class PawnUI : MonoBehaviour
         images[(int)pawnType].SetActive(true);
         this.pawnType = pawnType;
     }
-    #endregion
 
+    private void StopHighlightAnimation() => highlightAnimator.Play(Constants.Pawn.IdleAnimationName);
+    private void StartHighlightAnimation() => highlightAnimator.Play(Constants.Pawn.HighlightAnimationName);
+    private void StartMoveHighlightAnimation() => highlightAnimator.Play(Constants.Pawn.MoveHighlightAnimationName);
+    #endregion
 
 }
