@@ -35,6 +35,7 @@ public class GameScene : MonoBehaviour
         board = new Board();
         playerManager = new PlayerManager(delayManager);
         TileManager.CreateTileManager();
+        Debugger.CreateDebugger();
         SetListeners();
     }
 
@@ -91,7 +92,7 @@ public class GameScene : MonoBehaviour
     {
         LudoType player1Type = pawn;
         LudoType player2Type = (LudoType)(((int)pawn + 2) % (int)LudoType.END);
-        Debug.Log("PlayerSelectedPawn player1Type:" + player1Type + " player2Type:" + player2Type);
+        Debugger.Log("PlayerSelectedPawn player1Type:" + player1Type + " player2Type:" + player2Type);
         CreateTwoPlayerBoard(player1Type, player2Type, "You", "Opponent");
         TileManager.Instance.SetBottomLeftPlayer(player1Type);
         gameState = GameState.InitGameBoard;

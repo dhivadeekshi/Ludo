@@ -65,7 +65,7 @@ public class BoardPlayerUI : MonoBehaviour
     {
         var pawn = GetPawn(pawnUIID);
         Vector2 position = uiTileManager.GetTilePosition(tileNo);
-        Debug.Log("Move Pawn to : " + position);
+        Debugger.Log("Move Pawn to : " + position);
         GetPawn(pawnUIID).MoveToPosition(position, (id) => { onMoveCompleted.Invoke(); });
     }
 

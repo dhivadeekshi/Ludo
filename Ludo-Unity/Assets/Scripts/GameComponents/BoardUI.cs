@@ -54,7 +54,7 @@ public class BoardUI : MonoBehaviour
     private void InternalRotateBoard(LudoType boardType)
     {
         this.boardType = boardType;
-        Debug.Log("Rotate Board : " + boardType);
+        Debugger.Log("Rotate Board : " + boardType);
         switch (boardType)
         {
             case LudoType.Blue:

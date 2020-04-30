@@ -81,7 +81,7 @@ public class PawnUI : MonoBehaviour
     {
         if (onPawnTapped != null)
             onPawnTapped.Invoke(pawnID);
-        Debug.Log("Pawn Tapped : " + pawnType + " : " + pawnID);
+        Debugger.Log("Pawn Tapped : " + pawnType + " : " + pawnID);
     }
 
     private void SetButtonListener(PawnType pawnType)
