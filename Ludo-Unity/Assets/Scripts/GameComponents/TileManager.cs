@@ -100,6 +100,13 @@ public class TileManager
         return tilesReached;
     }
 
+    public int ConvertTileNoToTilesTraveled(PlayerType playerType, int tileNo)
+    {
+        int startingTileNo = GetStartingTileNo(playerType);
+        if (tileNo >= startingTileNo) return tileNo - startingTileNo + 1;
+        return Constants.Tiles.TotalTilesInOuterPath - startingTileNo + tileNo;
+    }
+
     private PlayerType bottomLeftPlayer = PlayerType.Red;
     private TileManager() { } // Singleton object
 }

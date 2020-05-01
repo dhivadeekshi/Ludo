@@ -42,6 +42,7 @@ public class LocalPlayer : CommonPlayer, Player
         pawnsInStart.Remove(pawnData);
         pawnsInOpen.Add(pawnData);
         onCompleted.Invoke(pawnID);
+        GroupPawnsInTile(TileManager.Instance.GetStartingTileNo(playerBoardType), Constants.Tiles.FirstTileNoOut);
     }
     public new void GetLastPawnOutOfStart(Action<Pawn.PawnID> onCompleted) => GetPawnOutOfStart(pawnsInStart[0].pawn, onCompleted);
     public new void MakeOnlyPossibleMove(int tiles, Action<Pawn.PawnID> onMoveCompleted) => MovePawn(pawnsInOpen[0].pawn, tiles, onMoveCompleted);
@@ -49,19 +50,49 @@ public class LocalPlayer : CommonPlayer, Player
     public void MovePawn(Pawn.PawnID pawnID, int tiles, Action<Pawn.PawnID> onMoveCompleted)
     {
         var pawnData = GetPawnData(pawnID);
-        int tileNo = TileManager.Instance.GetTileNo(playerBoardType, boardPlayer.GetTilesTraveled(pawnID) + tiles);
+        int tilesTraveled = boardPlayer.GetTilesTraveled(pawnID);
+        int tileNo = TileManager.Instance.GetTileNo(playerBoardType, tilesTraveled + tiles);
+        UngroupPawnsInTile(tilesTraveled);
+        var pawnsInTile = boardPlayer.GetAllPawnsTraveled(tilesTraveled);
+        if (pawnsInTile.Count > 2)
+            boardPlayerUI.ReturnPawnToNormal(GetPawnData(pawnID).pawnUI);
         Debugger.Log("Move Pawn To : " + tileNo);
         boardPlayerUI.MovePawnToTile(pawnData.pawnUI, tileNo, () =>
         {
-            boardPlayer.MovePawn(pawnID, tiles); onMoveCompleted.Invoke(pawnID);
+            boardPlayer.MovePawn(pawnID, tiles);
+            GroupPawnsInTile(tileNo, tilesTraveled + tiles);
+            onMoveCompleted.Invoke(pawnID);
         });
     }
 
+    public void GroupPawnsInTile(int tileNo, int tilesTraveled)
+    {
+        var pawnsInTile = boardPlayer.GetAllPawnsTraveled(tilesTraveled);
+        if(pawnsInTile.Count > 1)
+            boardPlayerUI.GroupPawns(GetPawnUIsFrom(pawnsInTile), tileNo);
+    }
+
+    public void UngroupPawnsInTile(int tilesTraveled)
+    {
+        int tileNo = TileManager.Instance.GetTileNo(playerBoardType, tilesTraveled);
+        var pawnsInTile = boardPlayer.GetAllPawnsTraveled(tilesTraveled);
+        if (pawnsInTile.Count == 2)
+            boardPlayerUI.UngroupPawns(GetPawnUIsFrom(pawnsInTile), tileNo);
+    }
+
+    private List<PawnUI.PawnUIID> GetPawnUIsFrom(List<Pawn.PawnID> pawnIDs)
+    {
+        var pawnUIIDs = new List<PawnUI.PawnUIID>();
+        foreach (var pawnID in pawnIDs)
+            pawnUIIDs.Add(GetPawnData(pawnID).pawnUI);
+        return pawnUIIDs;
+    }
+    
     protected override PlayerType playerType { get { return PlayerType.LocalPlayer; } }
     private void OnDiceTapped() { DisableDice(); ShowDiceRoll(); }
     private void EnableDice() => boardPlayerUI.EnableDice(OnDiceTapped);
     private void DisableDice() => boardPlayerUI.DisableDice();
-    private void StopAllHighlights() => boardPlayerUI.StopAllHighlights();
+    private void StopAllHighlights() => boardPlayerUI.StopPawnsHighlighting();
     protected override void OnAnimationEnded() => DiceRolled(Dice.RollDice());
 
     private class PawnData
@@ -99,8 +130,19 @@ public class LocalPlayer : CommonPlayer, Player
     {
         var pawnUIs = new List<PawnUI.PawnUIID>();
         var pawns = GetAllPawnsInOpenTraveledMax(tiles);
+        var tilesTraveledVisited = new List<int>();
         foreach (var pawn in pawns)
+        {
+            int tileTraveled = boardPlayer.GetTilesTraveled(pawn);
+            bool isIgnore = false;
+            foreach (var tile in tilesTraveledVisited)
+            {
+                if (tileTraveled == tile) { isIgnore = true; break; }
+            }
+            if (isIgnore) continue;
+            tilesTraveledVisited.Add(tileTraveled);
             pawnUIs.Add(GetPawnData(pawn).pawnUI);
+        }
         return pawnUIs;
     }
 

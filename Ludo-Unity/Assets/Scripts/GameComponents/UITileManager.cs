@@ -31,6 +31,17 @@ public class UITileManager : MonoBehaviour
         return tile_0_0.transform.position + new Vector3(col * tileWidth, row * tileHeight, 0);
     }
 
+    public List<Vector2> GetGroupPositions(int tileNo)
+    {
+        var tilePosition = GetTilePosition(tileNo);
+        var positions = new List<Vector2>();
+        positions.Add(tilePosition + pawnGroupSize * new Vector2(-1, -1));
+        positions.Add(tilePosition + pawnGroupSize * new Vector2(1, 1));
+        positions.Add(tilePosition + pawnGroupSize * new Vector2(-1, 1));
+        positions.Add(tilePosition + pawnGroupSize * new Vector2(1, -1));
+        return positions;
+    }
+
 
     [SerializeField]
     private GameObject startingTileBottomLeft = null;
@@ -45,6 +56,8 @@ public class UITileManager : MonoBehaviour
     private GameObject tile_0_0 = null;
     [SerializeField]
     private GameObject tile_1_1 = null;
+    [SerializeField]
+    private Vector2 pawnGroupSize = Vector2.zero;
 
     private Vector2 tileSize = Vector2.one;
     private float tileHeight { get { return tileSize.y; } }

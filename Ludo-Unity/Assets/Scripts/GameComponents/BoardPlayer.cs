@@ -114,6 +114,17 @@ public class BoardPlayer
         return pawnIDs;
     }
 
+    public List<PawnID> GetAllPawnsTraveled(int tiles)
+    {
+        List<PawnID> pawnIDs = new List<PawnID>();
+        foreach (var pawn in pawns)
+        {
+            if (pawn.IsPawnOut && pawn.TilesTravled == tiles)
+                pawnIDs.Add(pawn.pawnID);
+        }
+        return pawnIDs;
+    }
+
     public List<PawnID> GetAllPawns()
     {
         List<PawnID> pawnIDs = new List<PawnID>();

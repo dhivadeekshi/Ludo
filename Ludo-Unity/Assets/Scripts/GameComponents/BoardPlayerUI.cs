@@ -55,6 +55,14 @@ public class BoardPlayerUI : MonoBehaviour
             pawn.StopHighlight();
     }
 
+    public void StopPawnsHighlighting()
+    {
+        foreach(var pawn in pawns)
+        {
+            if (pawn.IsHighlighted) pawn.StopHighlight();
+        }
+    }
+
     public void GetPawnOutOfStart(PawnUIID pawnUIID) => 
         TakePawnOutOfSlot(pawnUIID).MoveToPosition(uiTileManager.GetStartingTilePositionFor(playerType), null);
 
@@ -81,10 +89,26 @@ public class BoardPlayerUI : MonoBehaviour
         MovePawn(pawnUIID, GetHomePosition(), onMoveCompleted);
     }
 
-    public void ResizePawn(PawnUIID pawnUIID, Vector3 scale)
+    public void ShrinkPawn(PawnUIID pawnUIID) => GetPawn(pawnUIID).Shrink();
+    public void ReturnPawnToNormal(PawnUIID pawnUIID) => GetPawn(pawnUIID).ReturnToNormal();
+
+    public void GroupPawns(List<PawnUIID> pawnUIIDs, int tileNo)
     {
-        var pawn = GetPawn(pawnUIID);
-        pawn.Resize(scale);
+        var positions = uiTileManager.GetGroupPositions(tileNo);
+        int index = 0;
+        foreach(var pawnUIID in pawnUIIDs)
+        {
+            GetPawn(pawnUIID).ShrinkToPosition(positions[index++]);
+        }
+    }
+
+    public void UngroupPawns(List<PawnUIID> pawnUIIDs, int tileNo)
+    {
+        var position = uiTileManager.GetTilePosition(tileNo);
+        foreach (var pawnUIID in pawnUIIDs)
+        {
+            GetPawn(pawnUIID).ReturnToNormal(position);
+        }
     }
     // ------------------------------------------------
     #endregion

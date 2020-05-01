@@ -5058,6 +5058,7 @@ MonoBehaviour:
   startingTileBottomRight: {fileID: 2025204941}
   tile_0_0: {fileID: 161980821}
   tile_1_1: {fileID: 937184766}
+  pawnGroupSize: {x: 5, y: 5}
 --- !u!1 &1243676265
 GameObject:
   m_ObjectHideFlags: 0

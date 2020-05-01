@@ -31,6 +31,7 @@ public class PawnUI : MonoBehaviour
         EnableButton();
         EnableImageRaycastTarget();
         StartHighlightAnimation();
+        IsHighlighted = true;
     }
 
     public void StopHighlight()
@@ -40,6 +41,7 @@ public class PawnUI : MonoBehaviour
         DisableImageRaycastTarget();
         DisableButton();
         StopHighlightAnimation();
+        IsHighlighted = false;
     }
 
     public void MoveToPosition(Vector2 position, UnityAction<PawnUIID> onMoveCompleted)
@@ -50,6 +52,9 @@ public class PawnUI : MonoBehaviour
                  onMoveCompleted.Invoke(pawnID);
          });
     }
+
+    public void Shrink() => StartShrinkAnimation();
+    public void ReturnToNormal() => StartReturnToNormalAnimation();
 
     public void ShrinkToPosition(Vector2 position)
     {
@@ -68,6 +73,7 @@ public class PawnUI : MonoBehaviour
     public void ResetSize() => transform.localScale = Vector3.one;
     public PawnType pawnType { get; private set; }
     public PawnUIID pawnID { get; private set; }
+    public bool IsHighlighted { get; private set; }
 
     #endregion
 
