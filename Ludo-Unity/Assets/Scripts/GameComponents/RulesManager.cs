@@ -105,7 +105,7 @@ public class RulesManager
             else if (pawnsInStart == 1 && pawnsInOpen == 0)
                 return DiceRollStates.Move;
         }
-        else if (pawnsInOpen > 1)
+        if (pawnsInOpen > 1)
             return DiceRollStates.Highlight;
         else if (pawnsInOpen == 1)
             return DiceRollStates.Move;
