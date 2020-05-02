@@ -47,7 +47,7 @@ public class RulesManager
         if (CurrentPlayer.GetAllPawnsTraveled(currentPawnTilesTraveled).Count > 1)
             return nullValue; // More than one pawn of the player in the spot forms a group
         var pawnKilled = nullValue;
-        int tileNo = TileManager.Instance.GetTileNo(CurrentPlayer.GetPlayerBoardType(), currentPawnTilesTraveled);
+        int tileNo = TileManager.Instance.GetOuterPathTileNo(CurrentPlayer.GetPlayerBoardType(), currentPawnTilesTraveled);
         foreach (var player in players)
         {
             if (player != CurrentPlayer)
@@ -63,7 +63,7 @@ public class RulesManager
         return pawnKilled;
     }
 
-    public bool IsHighlightPawnsInStart(int diceRoll) { return diceRoll == Constants.DiceRoll.RollToGetOutFromStart; }
+    public bool IsDiceRollToGetOut(int diceRoll) { return diceRoll == Constants.DiceRoll.RollToGetOutFromStart; }
     public bool IsCurrentPlayerWon() { return IsPlayerWon(CurrentPlayer); }
     public bool IsPlayerWon(Player player) { return player.CountPawnsInHome() == Constants.NoOfPawnsPerPlayer; }
     public int GetTilesTraveledMaxToAllowMove(int diceRoll) { return Constants.Tiles.TotalStepsToReachHome - diceRoll; }

@@ -11,9 +11,9 @@ public class TileManager
 
     public void SetBottomLeftPlayer(PlayerType bottomLeftPlayer) => this.bottomLeftPlayer = bottomLeftPlayer;
     public int GetStartingTileNo(PlayerType playerType) => Constants.Tiles.StartingTilesNo[GetPlayerIndex(playerType)];
-    public int GetStartingInnerTileNo(PlayerType playerType) => CalculateTileNo(GetStartingTileNo(playerType), Constants.Tiles.InnerTileStarting);
+    public int GetStartingInnerTileNo(PlayerType playerType) => CalculateOuterPathTileNo(GetStartingTileNo(playerType), Constants.Tiles.InnerTileStarting);
     public bool IsInnerTile(int tilesTraveled) => Constants.Tiles.InnerTileStarting <= tilesTraveled && tilesTraveled <= Constants.Tiles.InnerTileEnding;
-    public int CalculateTileNo(int startingTile, int tileTraveled) => (startingTile - 1 + tileTraveled) % Constants.Tiles.TotalTilesInOuterPath;
+    public int CalculateOuterPathTileNo(int startingTile, int tileTraveled) => (startingTile - 1 + tileTraveled) % Constants.Tiles.TotalTilesInOuterPath;
 
     public int GetPlayerIndex(PlayerType playerType)
     {
@@ -27,7 +27,7 @@ public class TileManager
         return player;
     }
 
-    public int GetRowNo(int tileIndex)
+    public int GetOuterPathRowNo(int tileIndex)
     {
         // rows 0   1   2   3   4   5   6   7   8   9   10  11  12  13  14
         // tile 0   1   2   3   4   5   6   12  13  19  20  21  22  23  24
@@ -47,7 +47,7 @@ public class TileManager
         return 0;
     }
 
-    public int GetColNo(int tileIndex)
+    public int GetOuterPathColNo(int tileIndex)
     {
         // col -6 => 13 - 11
         // col -5 => 14 , 10
@@ -91,14 +91,38 @@ public class TileManager
         return startIndex;
     }
 
-    public int GetNextTileNo(PlayerType playerType, int tilesTraveled) => GetTileNo(playerType, tilesTraveled, 1);
+    public int GetInnerTileRowNo(PlayerType playerType, int innerTileIndex)
+    {
+        int row = GetOuterPathRowNo(GetStartingInnerTileNo(playerType));
+        switch(GetPlayerIndex(playerType))
+        {
+            case 0: row += innerTileIndex; break; // Bottom player
+            case 2: row -= innerTileIndex; break; // Top Player
+        }
+        return row;
+    }
 
-    public int GetTileNo(PlayerType playerType, int tilesTraveled, int tiles = 0)
+    public int GetInnerTileColNo(PlayerType playerType, int innerTileIndex)
+    {
+        int col = GetOuterPathColNo(GetStartingInnerTileNo(playerType));
+        switch(GetPlayerIndex(playerType))
+        {
+            case 1: col += innerTileIndex; break; // Left Player
+            case 3: col -= innerTileIndex; break; // Right Player
+        }
+        return col;
+    }
+
+    public int GetNextOuterPathTileNo(PlayerType playerType, int tilesTraveled) => GetOuterPathTileNo(playerType, tilesTraveled, 1);
+
+    public int GetOuterPathTileNo(PlayerType playerType, int tilesTraveled, int tiles = 0)
     {
         int startingTileNo = GetStartingTileNo(playerType);
-        int tilesReached = CalculateTileNo(startingTileNo, tilesTraveled + tiles);
+        int tilesReached = CalculateOuterPathTileNo(startingTileNo, tilesTraveled + tiles);
         return tilesReached;
     }
+
+    public int GetInnerPathTileNo(PlayerType playerType, int tilesTraveled, int tiles = 0) => tilesTraveled + tiles - GetStartingInnerTileNo(playerType);
 
     public int ConvertTileNoToTilesTraveled(PlayerType playerType, int tileNo)
     {

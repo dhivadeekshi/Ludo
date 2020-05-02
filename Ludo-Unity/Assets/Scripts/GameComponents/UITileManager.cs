@@ -21,24 +21,30 @@ public class UITileManager : MonoBehaviour
     {
         if (TileManager.Instance.IsInnerTile(tilesTraveled + 1))
             return GetNextInnerTilePosition(playerType, tilesTraveled);
-        return GetTilePosition(TileManager.Instance.GetNextTileNo(playerType, tilesTraveled));
+        return GetTilePosition(TileManager.Instance.GetNextOuterPathTileNo(playerType, tilesTraveled));
     }
 
     public Vector2 GetTilePosition(int tileIndex)
     {
-        int row = TileManager.Instance.GetRowNo(tileIndex);
-        int col = TileManager.Instance.GetColNo(tileIndex);
+        int row = TileManager.Instance.GetOuterPathRowNo(tileIndex);
+        int col = TileManager.Instance.GetOuterPathColNo(tileIndex);
         return tile_0_0.transform.position + new Vector3(col * tileWidth, row * tileHeight, 0);
     }
 
-    public List<Vector2> GetGroupPositions(int tileNo)
+    public Vector2 GetInnerTilePosition(PlayerType playerType, int tileIndex)
     {
-        var tilePosition = GetTilePosition(tileNo);
+        int row = TileManager.Instance.GetInnerTileRowNo(playerType, tileIndex);
+        int col = TileManager.Instance.GetInnerTileColNo(playerType, tileIndex);
+        return tile_0_0.transform.position + new Vector3(col * tileWidth, row * tileHeight, 0);
+    }
+
+    public List<Vector2> GetGroupPositions()
+    {
         var positions = new List<Vector2>();
-        positions.Add(tilePosition + pawnGroupSize * new Vector2(-1, -1));
-        positions.Add(tilePosition + pawnGroupSize * new Vector2(1, 1));
-        positions.Add(tilePosition + pawnGroupSize * new Vector2(-1, 1));
-        positions.Add(tilePosition + pawnGroupSize * new Vector2(1, -1));
+        positions.Add(pawnGroupSize * new Vector2(-1, -1));
+        positions.Add(pawnGroupSize * new Vector2(1, 1));
+        positions.Add(pawnGroupSize * new Vector2(-1, 1));
+        positions.Add(pawnGroupSize * new Vector2(1, -1));
         return positions;
     }
 

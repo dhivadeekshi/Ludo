@@ -78,6 +78,13 @@ public class BoardPlayerUI : MonoBehaviour
         GetPawn(pawnUIID).MoveToPosition(position, (id) => { onMoveCompleted.Invoke(); });
     }
 
+    public void MovePawnToInnerTile(PawnUIID pawnUIID, int innerTileNo, UnityAction onMoveCompleted)
+    {
+        var pawn = GetPawn(pawnUIID);
+        Vector2 position = uiTileManager.GetInnerTilePosition(playerType, innerTileNo);
+        GetPawn(pawnUIID).MoveToPosition(position, (id) => { onMoveCompleted.Invoke(); });
+    }
+
     public List<PawnUIID> GetAllPawns()
     {
         var pawnUIIDs = new List<PawnUIID>();
@@ -96,17 +103,38 @@ public class BoardPlayerUI : MonoBehaviour
 
     public void GroupPawns(List<PawnUIID> pawnUIIDs, int tileNo)
     {
-        var positions = uiTileManager.GetGroupPositions(tileNo);
+        var tilePosition = uiTileManager.GetTilePosition(tileNo);
+        var positions = uiTileManager.GetGroupPositions();
         int index = 0;
         foreach(var pawnUIID in pawnUIIDs)
         {
-            GetPawn(pawnUIID).ShrinkToPosition(positions[index++]);
+            GetPawn(pawnUIID).ShrinkToPosition(tilePosition + positions[index++]);
+        }
+    }
+    
+    public void GroupPawnsInInnerTile(List<PawnUIID> pawnUIIDs, int tileNo)
+    {
+        var tilePosition = uiTileManager.GetInnerTilePosition(playerType, tileNo);
+        var positions = uiTileManager.GetGroupPositions();
+        int index = 0;
+        foreach (var pawnUIID in pawnUIIDs)
+        {
+            GetPawn(pawnUIID).ShrinkToPosition(tilePosition + positions[index++]);
         }
     }
 
     public void UngroupPawns(List<PawnUIID> pawnUIIDs, int tileNo)
     {
         var position = uiTileManager.GetTilePosition(tileNo);
+        foreach (var pawnUIID in pawnUIIDs)
+        {
+            GetPawn(pawnUIID).ReturnToNormal(position);
+        }
+    }
+
+    public void UngroupPawnsInInnerTile(List<PawnUIID> pawnUIIDs, int tileNo)
+    {
+        var position = uiTileManager.GetInnerTilePosition(playerType, tileNo);
         foreach (var pawnUIID in pawnUIIDs)
         {
             GetPawn(pawnUIID).ReturnToNormal(position);

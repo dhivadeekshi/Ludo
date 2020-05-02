@@ -45,7 +45,12 @@ public class LocalPlayer : CommonPlayer, Player
         GroupPawnsInTile(TileManager.Instance.GetStartingTileNo(playerBoardType), Constants.Tiles.FirstTileNoOut);
     }
     public new void GetLastPawnOutOfStart(Action<Pawn.PawnID> onCompleted) => GetPawnOutOfStart(pawnsInStart[0].pawn, onCompleted);
-    public new void MakeOnlyPossibleMove(int tiles, Action<Pawn.PawnID> onMoveCompleted) => MovePawn(pawnsInOpen[0].pawn, tiles, onMoveCompleted);
+    public new void MakeOnlyPossibleMove(int tiles, Action<Pawn.PawnID> onMoveCompleted)
+    {
+        var tilesTraveledMaxToAllowMove = Constants.Tiles.TotalStepsToReachHome - tiles;
+        var pawn = GetAllPawnsInOpenTraveledMax(tilesTraveledMaxToAllowMove)[0];
+        MovePawn(pawn, tiles, onMoveCompleted);
+    }
 
     public void ReturnPawnToStart(Pawn.PawnID pawnID, Action onCompleted)
     {
@@ -63,18 +68,44 @@ public class LocalPlayer : CommonPlayer, Player
     {
         var pawnData = GetPawnData(pawnID);
         int tilesTraveled = boardPlayer.GetTilesTraveled(pawnID);
-        int tileNo = TileManager.Instance.GetTileNo(playerBoardType, tilesTraveled + tiles);
-        UngroupPawnsInTile(tilesTraveled);
+        int travelToTile = tilesTraveled + tiles;
+        bool isAlreadyInInerTile = TileManager.Instance.IsInnerTile(tilesTraveled);
+        bool isTravelToInnerTile = TileManager.Instance.IsInnerTile(travelToTile);
+
+
+        // Ungroup Pawns ----------------
+        if (isAlreadyInInerTile)
+            UngroupPawnsInInnerTile(tilesTraveled);
+        else
+            UngroupPawnsInTile(tilesTraveled);
         var pawnsInTile = GetAllPawnsTraveled(tilesTraveled);
         if (pawnsInTile.Count > 2)
             boardPlayerUI.ReturnPawnToNormal(GetPawnData(pawnID).pawnUI);
-        Debugger.Log("Move Pawn To : " + tileNo);
-        boardPlayerUI.MovePawnToTile(pawnData.pawnUI, tileNo, () =>
-        {
-            boardPlayer.MovePawn(pawnID, tiles);
-            GroupPawnsInTile(tileNo, tilesTraveled + tiles);
-            onMoveCompleted.Invoke(pawnID);
-        });
+        // ------------------------------
+
+
+        if (isTravelToInnerTile)
+        { // Travel to inner tile
+            int tileNo = TileManager.Instance.GetInnerPathTileNo(playerBoardType, tilesTraveled, tiles);
+            Debugger.Log("Move Pawn To Inner tile : " + tileNo);
+            boardPlayerUI.MovePawnToInnerTile(pawnData.pawnUI, tileNo, () =>
+            {
+                boardPlayer.MovePawn(pawnID, tiles);
+                GroupPawnsInInnerTile(travelToTile);
+                onMoveCompleted.Invoke(pawnID);
+            });
+        }
+        else
+        { // Trave in outer path
+            int tileNo = TileManager.Instance.GetOuterPathTileNo(playerBoardType, tilesTraveled, tiles);
+            Debugger.Log("Move Pawn To : " + tileNo);
+            boardPlayerUI.MovePawnToTile(pawnData.pawnUI, tileNo, () =>
+            {
+                boardPlayer.MovePawn(pawnID, tiles);
+                GroupPawnsInTile(tileNo, travelToTile);
+                onMoveCompleted.Invoke(pawnID);
+            });
+        }
     }
 
     public void GroupPawnsInTile(int tileNo, int tilesTraveled)
@@ -86,10 +117,26 @@ public class LocalPlayer : CommonPlayer, Player
 
     public void UngroupPawnsInTile(int tilesTraveled)
     {
-        int tileNo = TileManager.Instance.GetTileNo(playerBoardType, tilesTraveled);
+        int tileNo = TileManager.Instance.GetOuterPathTileNo(playerBoardType, tilesTraveled);
         var pawnsInTile = GetAllPawnsTraveled(tilesTraveled);
         if (pawnsInTile.Count == 2)
             boardPlayerUI.UngroupPawns(GetPawnUIsFrom(pawnsInTile), tileNo);
+    }
+
+    public void GroupPawnsInInnerTile(int tilesTraveled)
+    {
+        int tileNo = TileManager.Instance.GetInnerPathTileNo(playerBoardType, tilesTraveled);
+        var pawnsInTile = GetAllPawnsTraveled(tilesTraveled);
+        if (pawnsInTile.Count > 1)
+            boardPlayerUI.GroupPawnsInInnerTile(GetPawnUIsFrom(pawnsInTile), tileNo);
+    }
+
+    public void UngroupPawnsInInnerTile(int tilesTraveled)
+    {
+        int tileNo = TileManager.Instance.GetInnerPathTileNo(playerBoardType, tilesTraveled);
+        var pawnsInTile = GetAllPawnsTraveled(tilesTraveled);
+        if (pawnsInTile.Count == 2)
+            boardPlayerUI.UngroupPawnsInInnerTile(GetPawnUIsFrom(pawnsInTile), tileNo);
     }
 
     private List<PawnUI.PawnUIID> GetPawnUIsFrom(List<Pawn.PawnID> pawnIDs)

@@ -73,7 +73,7 @@ public class PlayerManager
 
     private void OnDiceRolled(int diceRoll)
     {
-        bool isRollToGetPawnOut = rulesManager.IsHighlightPawnsInStart(diceRoll);
+        bool isRollToGetPawnOut = rulesManager.IsDiceRollToGetOut(diceRoll);
         switch (rulesManager.CheckRulesOnDiceRoll(diceRoll))
         {
             case RulesManager.DiceRollStates.Highlight:
@@ -83,7 +83,7 @@ public class PlayerManager
                     (pawnID) => { MoveSelectedPawn(pawnID, diceRoll); });
                 break;
             case RulesManager.DiceRollStates.Move: // Will always be only one move possible
-                if (isRollToGetPawnOut)
+                if (isRollToGetPawnOut && CurrentPlayer.CountPawnsInStart() > 0)
                     CurrentPlayer.GetLastPawnOutOfStart(OnMoveEnded);
                 else
                     CurrentPlayer.MakeOnlyPossibleMove(diceRoll, OnMoveEnded);
