@@ -86,7 +86,7 @@ public class LocalPlayer : CommonPlayer, Player
 
         if (isTravelToInnerTile)
         { // Travel to inner tile
-            int tileNo = TileManager.Instance.GetInnerPathTileNo(playerBoardType, tilesTraveled, tiles);
+            int tileNo = TileManager.Instance.GetInnerPathTileNo(tilesTraveled, tiles);
             Debugger.Log("Move Pawn To Inner tile : " + tileNo);
             boardPlayerUI.MovePawnToInnerTile(pawnData.pawnUI, tileNo, () =>
             {
@@ -125,7 +125,7 @@ public class LocalPlayer : CommonPlayer, Player
 
     public void GroupPawnsInInnerTile(int tilesTraveled)
     {
-        int tileNo = TileManager.Instance.GetInnerPathTileNo(playerBoardType, tilesTraveled);
+        int tileNo = TileManager.Instance.GetInnerPathTileNo(tilesTraveled);
         var pawnsInTile = GetAllPawnsTraveled(tilesTraveled);
         if (pawnsInTile.Count > 1)
             boardPlayerUI.GroupPawnsInInnerTile(GetPawnUIsFrom(pawnsInTile), tileNo);
@@ -133,7 +133,7 @@ public class LocalPlayer : CommonPlayer, Player
 
     public void UngroupPawnsInInnerTile(int tilesTraveled)
     {
-        int tileNo = TileManager.Instance.GetInnerPathTileNo(playerBoardType, tilesTraveled);
+        int tileNo = TileManager.Instance.GetInnerPathTileNo(tilesTraveled);
         var pawnsInTile = GetAllPawnsTraveled(tilesTraveled);
         if (pawnsInTile.Count == 2)
             boardPlayerUI.UngroupPawnsInInnerTile(GetPawnUIsFrom(pawnsInTile), tileNo);

@@ -122,7 +122,7 @@ public class TileManager
         return tilesReached;
     }
 
-    public int GetInnerPathTileNo(PlayerType playerType, int tilesTraveled, int tiles = 0) => tilesTraveled + tiles - GetStartingInnerTileNo(playerType);
+    public int GetInnerPathTileNo(int tilesTraveled, int tiles = 0) => tilesTraveled + tiles - Constants.Tiles.InnerTileStarting;
 
     public int ConvertTileNoToTilesTraveled(PlayerType playerType, int tileNo)
     {
