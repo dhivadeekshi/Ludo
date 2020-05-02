@@ -105,6 +105,17 @@ public class BoardPlayer
         return pawnIDs;
     }
 
+    public List<PawnID> GetAllPawnsInHome()
+    {
+        List<PawnID> pawnIDs = new List<PawnID>();
+        foreach (var pawn in pawns)
+        {
+            if (pawn.IsHome)
+                pawnIDs.Add(pawn.pawnID);
+        }
+        return pawnIDs;
+    }
+
     public List<PawnID> GetAllPawnsInOpenTraveledMax(int tiles)
     {
         List<PawnID> pawnIDs = new List<PawnID>();

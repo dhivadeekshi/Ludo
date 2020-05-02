@@ -64,6 +64,20 @@ public class LocalPlayer : CommonPlayer, Player
         });
     }
 
+    public void MovePawnToHome(Pawn.PawnID pawnID, int tiles, Action<Pawn.PawnID> onCompleted)
+    {
+        var pawnData = GetPawnData(pawnID);
+        boardPlayerUI.MovePawnToHome(pawnData.pawnUI, () =>
+        {
+            boardPlayer.MovePawn(pawnID, tiles);
+            pawnsInOpen.Remove(pawnData);
+            pawnUIsInHome.Add(pawnData.pawnUI);
+            if(pawnUIsInHome.Count > 1)
+                boardPlayerUI.GroupPawnsInHome(pawnUIsInHome);
+            onCompleted.Invoke(pawnID);
+        });
+    }
+
     public void MovePawn(Pawn.PawnID pawnID, int tiles, Action<Pawn.PawnID> onMoveCompleted)
     {
         var pawnData = GetPawnData(pawnID);
@@ -71,6 +85,12 @@ public class LocalPlayer : CommonPlayer, Player
         int travelToTile = tilesTraveled + tiles;
         bool isAlreadyInInerTile = TileManager.Instance.IsInnerTile(tilesTraveled);
         bool isTravelToInnerTile = TileManager.Instance.IsInnerTile(travelToTile);
+        if(travelToTile == Constants.Tiles.TotalStepsToReachHome)
+        {
+            // Move pawn to home
+            MovePawnToHome(pawnID, tiles, onMoveCompleted);
+            return;
+        }
 
 
         // Ungroup Pawns ----------------
@@ -168,6 +188,7 @@ public class LocalPlayer : CommonPlayer, Player
 
     private List<PawnData> pawnsInStart = new List<PawnData>();
     private List<PawnData> pawnsInOpen = new List<PawnData>();
+    private List<PawnUI.PawnUIID> pawnUIsInHome = new List<PawnUI.PawnUIID>();
 
     private void InitPawnData()
     {
@@ -257,5 +278,4 @@ public class LocalPlayer : CommonPlayer, Player
         }
         return null;
     }
-
 }

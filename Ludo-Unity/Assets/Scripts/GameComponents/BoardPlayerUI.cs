@@ -73,15 +73,19 @@ public class BoardPlayerUI : MonoBehaviour
 
     public void MovePawnToTile(PawnUIID pawnUIID, int tileNo, UnityAction onMoveCompleted)
     {
-        var pawn = GetPawn(pawnUIID);
         Vector2 position = uiTileManager.GetTilePosition(tileNo);
         GetPawn(pawnUIID).MoveToPosition(position, (id) => { onMoveCompleted.Invoke(); });
     }
 
     public void MovePawnToInnerTile(PawnUIID pawnUIID, int innerTileNo, UnityAction onMoveCompleted)
     {
-        var pawn = GetPawn(pawnUIID);
         Vector2 position = uiTileManager.GetInnerTilePosition(playerType, innerTileNo);
+        GetPawn(pawnUIID).MoveToPosition(position, (id) => { onMoveCompleted.Invoke(); });
+    }
+
+    public void MovePawnToHome(PawnUIID pawnUIID, UnityAction onMoveCompleted)
+    {
+        Vector2 position = GetHomePosition();
         GetPawn(pawnUIID).MoveToPosition(position, (id) => { onMoveCompleted.Invoke(); });
     }
 
@@ -91,11 +95,6 @@ public class BoardPlayerUI : MonoBehaviour
         foreach (var pawn in pawns)
             pawnUIIDs.Add(pawn.pawnID);
         return pawnUIIDs;
-    }
-
-    public void MovePawnToHome(PawnUIID pawnUIID, UnityAction<PawnUIID> onMoveCompleted)
-    {
-        MovePawn(pawnUIID, GetHomePosition(), onMoveCompleted);
     }
 
     public void ShrinkPawn(PawnUIID pawnUIID) => GetPawn(pawnUIID).Shrink();
@@ -120,6 +119,17 @@ public class BoardPlayerUI : MonoBehaviour
         foreach (var pawnUIID in pawnUIIDs)
         {
             GetPawn(pawnUIID).ShrinkToPosition(tilePosition + positions[index++]);
+        }
+    }
+
+    public void GroupPawnsInHome(List<PawnUIID> pawnUIIDs)
+    {
+        var homePosition = GetHomePosition();
+        var positions = uiTileManager.GetGroupPositions();
+        int index = 0;
+        foreach (var pawnUIID in pawnUIIDs)
+        {
+            GetPawn(pawnUIID).ShrinkToPosition(homePosition + positions[index++]);
         }
     }
 
