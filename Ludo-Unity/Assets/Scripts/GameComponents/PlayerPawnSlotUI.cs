@@ -8,8 +8,6 @@ public class PlayerPawnSlotUI : MonoBehaviour
     public void PutPawnInSlot(PawnUI pawnUI) { this.pawnUI = pawnUI; pawnUI.MoveToPosition(GetPosition(), null); }
     public PawnUI TakePawnOutOfSlot() { PawnUI pawnUI = this.pawnUI; this.pawnUI = null; return pawnUI; }
     public bool Contains(PawnUI pawnUI) { return !IsEmpty() && this.pawnUI.pawnID.equals(pawnUI.pawnID); }
-
-    /*TEMP*/[SerializeField]
-    private PawnUI pawnUI = null;
     private Vector2 GetPosition() { return transform.position; }
+    private PawnUI pawnUI = null;
 }

@@ -25,6 +25,7 @@ public class CommonPlayer
     public bool IsLocalPlayer() { return playerType == PlayerType.LocalPlayer; }
     public bool IsOnlinePlayer() { return playerType == PlayerType.OnlinePlayer; }
     public LudoType GetPlayerBoardType() { return playerBoardType; }
+    public string GetPlayerName() => playerName;
 
     public void GetPawnOutOfStart(Pawn.PawnID pawnID, Action<Pawn.PawnID> onCompleted) { }
     public void GetLastPawnOutOfStart(Action<Pawn.PawnID> onCompleted) { }

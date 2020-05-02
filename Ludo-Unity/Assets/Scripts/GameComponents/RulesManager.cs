@@ -15,7 +15,7 @@ public class RulesManager
         RollDice,
         KillPawn,
         EndTurn,
-        GameOver
+        PlayerWon
     }
 
     public void AddPlayer(Player player)
@@ -125,7 +125,7 @@ public class RulesManager
         //  Rules for EndTurn:
         //      When there is no move to make
 
-        if (IsCurrentPlayerWon()) return PawnMoveStates.GameOver;
+        if (IsCurrentPlayerWon()) return PawnMoveStates.PlayerWon;
 
         ProvideExtraTurnOnReachHome(pawnID);
         if (IsPawnKillsAny(pawnID)) { ProvideExtraTurnOnKillOther(); return PawnMoveStates.KillPawn; }

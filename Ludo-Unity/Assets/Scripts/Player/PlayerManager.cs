@@ -42,7 +42,8 @@ public class PlayerManager
     public string[] GetPlayerNamesByRank()
     {
         string[] playerNames = new string[TotalPlayers];
-        // TODO update playerNames by rank
+        for (int i = 0; i < TotalPlayers; i++)
+            playerNames[i] = players[playersRanked[i]].GetPlayerName();
         return playerNames;
     }
 
@@ -51,6 +52,7 @@ public class PlayerManager
     private DelayManager delayManager = null;
     private RulesManager rulesManager = null;
     private Action onGameOver = null;
+    private List<int> playersRanked = new List<int>();
 
     private int TotalPlayers { get { return players.Count; } }
     private Player CurrentPlayer { get { return players[currentTurnPlayer]; } }
@@ -107,11 +109,34 @@ public class PlayerManager
             case RulesManager.PawnMoveStates.KillPawn:
                 MakePawnKillAnother(pawnID);
                 break;
-            case RulesManager.PawnMoveStates.GameOver:
-                if (onGameOver != null)
-                    onGameOver.Invoke();
+            case RulesManager.PawnMoveStates.PlayerWon:
+                AddCurrentPlayerToRank();
+                if (ReachedGameEnd())
+                {
+                    AddNextPlayerToRank();
+                    EndGame();
+                }
+                else
+                    EndTurnAfter(Constants.DiceRoll.WaitForDiceDisplayDuration);
                 break;
         }
+    }
+
+    private bool ReachedGameEnd() => playersRanked.Count == TotalPlayers - 1;
+    private void AddCurrentPlayerToRank() => playersRanked.Add(currentTurnPlayer);
+    private void AddNextPlayerToRank()
+    {
+        IterateCurrentPlayer();
+        playersRanked.Add(currentTurnPlayer);
+    }
+
+    private void EndGame()
+    {
+        delayManager.WaitForDuration(0.5f, () =>
+        {
+            if (onGameOver != null)
+                onGameOver.Invoke();
+        });
     }
 
     private void MakePawnKillAnother(Pawn.PawnID pawnID)

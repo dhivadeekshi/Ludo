@@ -42,7 +42,6 @@ public class HUD : MonoBehaviour
     public void HideGameOverPopup()
     {
         gameOverPopup.ClearListeners();
-        gameOverPopup.Reset();
         ClosePopup(gameQuitPopup);
     }
 

@@ -10,6 +10,7 @@ public interface Player
     void SetListeners(Action<int> onDiceRolled);
     void ClearListeners();
     PlayerType GetPlayerBoardType();
+    string GetPlayerName();
 
 
     void GainedExtraDiceThrow();
