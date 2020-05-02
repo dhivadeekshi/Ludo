@@ -10,6 +10,8 @@ public class BoardPlayer
         CreatePawns();
     }
 
+    public bool IsPawnSafeTile(PawnID pawnID) => GetPawnForID(pawnID).IsSafe;
+
     public PawnID GetAPawnOutOfStart()
     {
         foreach (var pawn in pawns)

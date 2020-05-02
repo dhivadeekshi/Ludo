@@ -66,6 +66,8 @@ public class BoardPlayerUI : MonoBehaviour
     public void GetPawnOutOfStart(PawnUIID pawnUIID) => 
         TakePawnOutOfSlot(pawnUIID).MoveToPosition(uiTileManager.GetStartingTilePositionFor(playerType), null);
 
+    public void ReturnPawnToStart(PawnUIID pawnUIID, UnityAction onCompleted) { ReturnPawnToEmptySlot(pawnUIID); onCompleted.Invoke(); }
+
     public void MovePawn(PawnUIID pawnUIID, Vector2 position, UnityAction<PawnUIID> onMoveCompleted) =>
         GetPawn(pawnUIID).MoveToPosition(position, onMoveCompleted);
 

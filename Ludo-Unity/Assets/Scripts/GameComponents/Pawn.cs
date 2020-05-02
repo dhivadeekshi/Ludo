@@ -8,6 +8,7 @@ public class Pawn
         public PawnID(int id) => this.id = id;
         public static PawnID nullID { get { return new PawnID(-1); } }
         public bool equals(PawnID otherID) => this.id == otherID.id;
+        public bool IsNull() => equals(nullID);
     }
 
     public LudoType PawnType { get; private set; }

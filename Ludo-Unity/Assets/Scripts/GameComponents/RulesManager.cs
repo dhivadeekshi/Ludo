@@ -37,11 +37,30 @@ public class RulesManager
         return CheckDiceRollRules();
     }
 
-    public PawnMoveStates CheckRulesOnMoveEnd(Pawn.PawnID pawnID)
+    public PawnMoveStates CheckRulesOnMoveEnd(Pawn.PawnID pawnID) => InternalCheckRulesOnMoveEnd(pawnID);
+
+    public KeyValuePair<Player, Pawn.PawnID> GetPawnKilledBy(Pawn.PawnID pawnID)
     {
-        CheckIfPawnReachedHome(pawnID);
-        CheckIfPawnKillsAny(pawnID);
-        return CheckPawnMoveRules();
+        int currentPawnTilesTraveled = CurrentPlayer.GetTilesTraveled(pawnID);
+        var nullValue = new KeyValuePair<Player, Pawn.PawnID>(null, Pawn.PawnID.nullID);
+        if (CurrentPlayer.IsPawnInSafeTile(pawnID)) return nullValue; // Pawn landed on a safe tile, cannot kill pawn
+        if (CurrentPlayer.GetAllPawnsTraveled(currentPawnTilesTraveled).Count > 1)
+            return nullValue; // More than one pawn of the player in the spot forms a group
+        var pawnKilled = nullValue;
+        int tileNo = TileManager.Instance.GetTileNo(CurrentPlayer.GetPlayerBoardType(), currentPawnTilesTraveled);
+        foreach (var player in players)
+        {
+            if (player != CurrentPlayer)
+            {
+                int pawnTraveled = TileManager.Instance.ConvertTileNoToTilesTraveled(player.GetPlayerBoardType(), tileNo);
+                var pawnsInTile = player.GetAllPawnsTraveled(pawnTraveled);
+                if (pawnsInTile.Count == 0) continue; // No pawns found to kill
+                if (pawnsInTile.Count > 1) return nullValue; // More than one pawn in the spot cannot kill
+                if (pawnsInTile.Count == 1 && !pawnKilled.Value.IsNull()) return nullValue; // Different player pawns in a group cannot kill
+                pawnKilled = new KeyValuePair<Player, Pawn.PawnID>(player, pawnsInTile[0]);
+            }
+        }
+        return pawnKilled;
     }
 
     public bool IsHighlightPawnsInStart(int diceRoll) { return diceRoll == Constants.DiceRoll.RollToGetOutFromStart; }
@@ -93,7 +112,7 @@ public class RulesManager
         return DiceRollStates.EndTurn;
     }
 
-    private PawnMoveStates CheckPawnMoveRules()
+    private PawnMoveStates InternalCheckRulesOnMoveEnd(Pawn.PawnID pawnID)
     {
         // Rules:
         //  Rules for RollDice:
@@ -108,6 +127,9 @@ public class RulesManager
 
         if (IsCurrentPlayerWon()) return PawnMoveStates.GameOver;
 
+        ProvideExtraTurnOnReachHome(pawnID);
+        if (IsPawnKillsAny(pawnID)) { ProvideExtraTurnOnKillOther(); return PawnMoveStates.KillPawn; }
+
         if (LastRolledDice() == Constants.DiceRoll.RollForExtraTurn) return PawnMoveStates.RollDice;
 
         if (killPawnExtraTurns > 0) { killPawnExtraTurns--; return PawnMoveStates.RollDice; }
@@ -116,16 +138,18 @@ public class RulesManager
         return PawnMoveStates.EndTurn;
     }
 
-    private void CheckIfPawnReachedHome(Pawn.PawnID pawnID)
+    private void ProvideExtraTurnOnReachHome(Pawn.PawnID pawnID)
     {
         if (CurrentPlayer.GetTilesTraveled(pawnID) == Constants.Tiles.TotalStepsToReachHome)
             reachedHomeExtraTurns++;
     }
 
-    private void CheckIfPawnKillsAny(Pawn.PawnID pawnID)
+    private void ProvideExtraTurnOnKillOther()
     {
-        // TODO check if there is any opponent single pawn in the same tile then kill it
+            killPawnExtraTurns++;
     }
+
+    private bool IsPawnKillsAny(Pawn.PawnID pawnID) => GetPawnKilledBy(pawnID).Value.IsNull() == false;
 
     private bool CanReachHome(int tilesTraveled, int diceRoll)
     {

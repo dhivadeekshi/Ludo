@@ -47,13 +47,25 @@ public class LocalPlayer : CommonPlayer, Player
     public new void GetLastPawnOutOfStart(Action<Pawn.PawnID> onCompleted) => GetPawnOutOfStart(pawnsInStart[0].pawn, onCompleted);
     public new void MakeOnlyPossibleMove(int tiles, Action<Pawn.PawnID> onMoveCompleted) => MovePawn(pawnsInOpen[0].pawn, tiles, onMoveCompleted);
 
+    public void ReturnPawnToStart(Pawn.PawnID pawnID, Action onCompleted)
+    {
+        var pawnData = GetPawnData(pawnID);
+        boardPlayerUI.ReturnPawnToStart(pawnData.pawnUI, () =>
+        {
+            pawnsInOpen.Remove(pawnData);
+            pawnsInStart.Add(pawnData);
+            ReturnPawnToStart(pawnID);
+            onCompleted.Invoke();
+        });
+    }
+
     public void MovePawn(Pawn.PawnID pawnID, int tiles, Action<Pawn.PawnID> onMoveCompleted)
     {
         var pawnData = GetPawnData(pawnID);
         int tilesTraveled = boardPlayer.GetTilesTraveled(pawnID);
         int tileNo = TileManager.Instance.GetTileNo(playerBoardType, tilesTraveled + tiles);
         UngroupPawnsInTile(tilesTraveled);
-        var pawnsInTile = boardPlayer.GetAllPawnsTraveled(tilesTraveled);
+        var pawnsInTile = GetAllPawnsTraveled(tilesTraveled);
         if (pawnsInTile.Count > 2)
             boardPlayerUI.ReturnPawnToNormal(GetPawnData(pawnID).pawnUI);
         Debugger.Log("Move Pawn To : " + tileNo);
@@ -67,7 +79,7 @@ public class LocalPlayer : CommonPlayer, Player
 
     public void GroupPawnsInTile(int tileNo, int tilesTraveled)
     {
-        var pawnsInTile = boardPlayer.GetAllPawnsTraveled(tilesTraveled);
+        var pawnsInTile = GetAllPawnsTraveled(tilesTraveled);
         if(pawnsInTile.Count > 1)
             boardPlayerUI.GroupPawns(GetPawnUIsFrom(pawnsInTile), tileNo);
     }
@@ -75,7 +87,7 @@ public class LocalPlayer : CommonPlayer, Player
     public void UngroupPawnsInTile(int tilesTraveled)
     {
         int tileNo = TileManager.Instance.GetTileNo(playerBoardType, tilesTraveled);
-        var pawnsInTile = boardPlayer.GetAllPawnsTraveled(tilesTraveled);
+        var pawnsInTile = GetAllPawnsTraveled(tilesTraveled);
         if (pawnsInTile.Count == 2)
             boardPlayerUI.UngroupPawns(GetPawnUIsFrom(pawnsInTile), tileNo);
     }

@@ -105,15 +105,22 @@ public class PlayerManager
                 CurrentPlayer.GainedExtraDiceThrow();
                 break;
             case RulesManager.PawnMoveStates.KillPawn:
-                // TEMP ------------
-                EndTurnAfter(Constants.DiceRoll.WaitForDiceDisplayDuration);
-                // -----------------
+                MakePawnKillAnother(pawnID);
                 break;
             case RulesManager.PawnMoveStates.GameOver:
                 if (onGameOver != null)
                     onGameOver.Invoke();
                 break;
         }
+    }
+
+    private void MakePawnKillAnother(Pawn.PawnID pawnID)
+    {
+        var pawnToKill = rulesManager.GetPawnKilledBy(pawnID);
+        var player = pawnToKill.Key;
+        var pawn = pawnToKill.Value;
+
+        player.ReturnPawnToStart(pawn, () => { OnMoveEnded(pawnID); });
     }
 
     private void GetSelectedPawnOutOfStart(Pawn.PawnID pawnID) => CurrentPlayer.GetPawnOutOfStart(pawnID, OnMoveEnded);

@@ -31,6 +31,7 @@ public class CommonPlayer
     public void MakeOnlyPossibleMove(int tiles, Action<Pawn.PawnID> onMoveCompleted) { }
 
     // Board Player Start
+    public bool IsPawnInSafeTile(Pawn.PawnID pawnID) => boardPlayer.IsPawnSafeTile(pawnID);
     public Pawn.PawnID GetAPawnOutOfStart() { return boardPlayer.GetAPawnOutOfStart(); }
     public int GetTilesTraveled(Pawn.PawnID pawnID) { return boardPlayer.GetTilesTraveled(pawnID); } 
     public void ReturnPawnToStart(Pawn.PawnID pawnID) { boardPlayer.ReturnPawnToStart(pawnID); }
@@ -42,6 +43,7 @@ public class CommonPlayer
     public List<Pawn.PawnID> GetAllPawnsInOpen() { return boardPlayer.GetAllPawnsInOpen(); }
     public List<Pawn.PawnID> GetAllPawnsInOpenTraveledMax(int tiles) { return boardPlayer.GetAllPawnsInOpenTraveledMax(tiles); }
     public List<Pawn.PawnID> GetAllPawns() { return boardPlayer.GetAllPawns(); }
+    public List<Pawn.PawnID> GetAllPawnsTraveled(int tilesTraveled) => boardPlayer.GetAllPawnsTraveled(tilesTraveled);
     // Board Player End
 
     #endregion

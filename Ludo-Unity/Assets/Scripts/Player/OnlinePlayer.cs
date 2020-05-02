@@ -44,4 +44,9 @@ public class OnlinePlayer : CommonPlayer, Player
     {
         throw new NotImplementedException();
     }
+
+    public void ReturnPawnToStart(Pawn.PawnID pawnID, Action onCompleted)
+    {
+        throw new NotImplementedException();
+    }
 }
